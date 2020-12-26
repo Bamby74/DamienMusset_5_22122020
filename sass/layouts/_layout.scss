@@ -76,14 +76,13 @@ h2{
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
-.cam_info-lastline{
-    display: flex;
-    justify-content: space-between;
-    .cam_lastline-price{
+
+.cam_lastline-price{
         font-weight: 700;
-        font-size: 20px
-    }
+        font-size: 20px;
+        text-align:right;
 }
+
 footer{
     align-items: center;
     background: #FFFF;
