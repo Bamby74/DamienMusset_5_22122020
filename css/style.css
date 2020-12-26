@@ -1,0 +1,80 @@
+body {
+  background: black;
+  margin: 0; }
+
+header {
+  height: 70px;
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px 10px 20px;
+  background: white; }
+  header img {
+    width: 100px;
+    height: 90%; }
+
+.nav-icones {
+  display: flex;
+  justify-content: space-between;
+  width: 50px; }
+
+h2 {
+  margin: 40px 40px;
+  color: #FFFF;
+  text-align: center;
+  font-family: 'Shadows Into Light';
+  font-size: 3em; }
+
+#cam_map {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.cam-card {
+  background-color: #FFFF;
+  width: 80%;
+  height: auto;
+  margin: 20px 10px 20px 10px;
+  border-radius: 20px; }
+  .cam-card .cam-photo {
+    width: 100%;
+    height: 50%; }
+  .cam-card .cam-info {
+    margin: 0px 10px 10px 10px; }
+    .cam-card .cam-info .cam_info-name {
+      font-weight: 900;
+      font-size: 20px; }
+
+.cam-photo-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px; }
+
+.cam_info-lastline {
+  display: flex;
+  justify-content: space-between; }
+  .cam_info-lastline .cam_lastline-price {
+    font-weight: 700;
+    font-size: 20px; }
+
+footer {
+  align-items: center;
+  background: #FFFF;
+  height: auto;
+  padding: 10px 20px 10px 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: 900; }
+
+ul {
+  list-style: none;
+  margin: 0;
+  font-family: 'Shadows Into Light';
+  font-weight: bold;
+  text-align: right;
+  font-size: 1.2em; }
+
+/*# sourceMappingURL=style.css.map */
