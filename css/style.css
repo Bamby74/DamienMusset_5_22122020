@@ -36,7 +36,8 @@ h2 {
   width: 80%;
   height: auto;
   margin: 20px 10px 20px 10px;
-  border-radius: 20px; }
+  border-radius: 20px;
+  box-shadow: 0 0 2px 1px rgba(255, 255, 255, 0.993); }
   .cam-card .cam-photo {
     width: 100%;
     height: 50%; }
@@ -45,6 +46,20 @@ h2 {
     .cam-card .cam-info .cam_info-name {
       font-weight: 900;
       font-size: 20px; }
+    .cam-card .cam-info .btn {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 10px;
+      padding: 5px;
+      text-decoration: none;
+      background: black;
+      color: #FFFF;
+      text-align: center;
+      border-radius: 5px;
+      width: 30%;
+      height: auto;
+      line-height: 20px; }
 
 .cam-photo-img {
   object-fit: cover;
@@ -66,8 +81,7 @@ footer {
   height: auto;
   padding: 10px 20px 10px 20px;
   padding-top: 5px;
-  padding-bottom: 5px;
-  font-weight: 900; }
+  padding-bottom: 5px; }
 
 ul {
   list-style: none;
