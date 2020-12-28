@@ -13,6 +13,9 @@ header {
   header img {
     width: 100px;
     height: 90%; }
+  header #home_icon, header #basket_icon {
+    text-decoration: none;
+    color: black; }
 
 .nav-icones {
   display: flex;
@@ -72,10 +75,10 @@ h2 {
   .cam-card .cam_lastline {
     display: flex;
     justify-content: space-between; }
-    .cam-card .cam_lastline .cam_lastline-price {
-      font-weight: 700;
-      font-size: 20px;
-      text-align: right; }
+  .cam-card .cam_lastline-price {
+    font-weight: 700;
+    font-size: 20px;
+    text-align: right; }
   .cam-card .cam-photo-img {
     object-fit: cover;
     width: 100%;

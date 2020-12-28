@@ -15,6 +15,10 @@ header{
         width:100px;
         height:90%;
     }
+    #home_icon, #basket_icon{
+        text-decoration:none;
+        color:black;
+    }
 }
 .nav-icones{
     display: flex;
@@ -85,12 +89,12 @@ h2{
     .cam_lastline{
     display:flex;
     justify-content:space-between;
+    }
         .cam_lastline-price{
             font-weight: 700;
             font-size: 20px;
             text-align:right; 
         }
-    }
     .cam-photo-img {
         object-fit: cover;
         width: 100%;
