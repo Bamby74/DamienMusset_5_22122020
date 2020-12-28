@@ -15,12 +15,32 @@ header {
     height: 90%; }
   header #home_icon, header #basket_icon {
     text-decoration: none;
-    color: black; }
+    color: black;
+    font-size: 1.5em; }
 
 .nav-icones {
   display: flex;
   justify-content: space-between;
-  width: 50px; }
+  width: 75px;
+  align-items: center; }
+  .nav-icones #basket_icon {
+    position: absolute;
+    top: 32px; }
+
+.product_in-basket {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: red;
+  position: relative;
+  top: -15px;
+  right: -16px; }
+  .product_in-basket span {
+    position: relative;
+    left: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em; }
 
 h2 {
   margin: 40px 40px;

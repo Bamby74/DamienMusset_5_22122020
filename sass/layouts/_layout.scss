@@ -18,12 +18,36 @@ header{
     #home_icon, #basket_icon{
         text-decoration:none;
         color:black;
+        font-size:1.5em;
     }
 }
 .nav-icones{
     display: flex;
     justify-content: space-between;
-    width: 50px;
+    width: 75px;
+    align-items:center;
+    #basket_icon{
+        position:absolute;
+        top:32px;
+    }
+    
+}
+.product_in-basket{
+        width:20px;
+        height: 20px;
+        border-radius:10px;
+        background:red;
+        position: relative;
+        top:-15px;
+        right:-16px;
+    
+        span{
+            position: relative;
+        left: 6px;
+        color: white;
+        font-weight: bold;
+        font-size: 0.8em;
+        }
 }
 
 h2{
