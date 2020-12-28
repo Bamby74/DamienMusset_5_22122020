@@ -65,24 +65,44 @@ h2{
             border-radius: 5px;
             width: 30%;
             height: auto;
+            align-items:center;
             line-height: 20px;
+            i{
+                margin:0 5px 0 5px;
+            }
+            &.btn_add-to-basket{
+                width: 200px;
+                &:hover{
+                    background:#FF0000;
+                    transform: scale(1.1);
+                    transition: all 300ms;
+                }
+
+            }
         }
-    } 
+        
+    }
+    .cam_lastline{
+    display:flex;
+    justify-content:space-between;
+        .cam_lastline-price{
+            font-weight: 700;
+            font-size: 20px;
+            text-align:right; 
+        }
+    }
+    .cam-photo-img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
 }
-.cam-photo-img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+#product_map{
+    height: 90%;
+    margin-bottom:20px;
 }
-
-.cam_lastline-price{
-        font-weight: 700;
-        font-size: 20px;
-        text-align:right;
-}
-
 footer{
     align-items: center;
     background: #FFFF;
