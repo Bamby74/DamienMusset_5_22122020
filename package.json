@@ -1,0 +1,21 @@
+{
+  "name": "projet5",
+  "version": "1.0.0",
+  "description": "This is the back end server for Project 5 of the Junior Web Developer path.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bamby74/DamienMusset_5_22122020.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bamby74/DamienMusset_5_22122020/issues"
+  },
+  "homepage": "https://github.com/Bamby74/DamienMusset_5_22122020#readme"
+}

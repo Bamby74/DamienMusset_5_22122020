@@ -45,7 +45,7 @@ const showProduct = async() => {
         `);
     const button = document.querySelector('button')
     button.addEventListener('click', () => {
-        addProduct();
+        addProduct(product);
     }) 
 };  
 
@@ -68,7 +68,8 @@ function onLoadAddProduct() {
     }
 };
 
-function addProduct() {
+function addProduct(product) {
+    
     let productNumbers = localStorage.getItem('product');
 
     productNumbers=parseInt(productNumbers);
@@ -85,5 +86,34 @@ function addProduct() {
             let productCount= document.getElementById('product-count');
             productCount.textContent = 1 ;
     }
+    setItems(product);
 } 
+
+
+function setItems(product) {
+    let basketItems = localStorage.getItem('camerasInBasket');
+    basketItems = JSON.parse(basketItems);
+    
+    if(basketItems != null) {
+        
+        if(basketItems[product._id] == undefined) {
+            product.quantity = 0;
+            basketItems = {
+                ...basketItems,
+                [product._id]: product
+            }
+        }
+        basketItems[product._id].quantity += 1 ;
+        alert('Vous avez ajouté votre produit au panier !');
+    } else {    
+        product.quantity = 1 ; 
+        basketItems = {
+            [product._id]: product
+        }
+        alert('Vous avez ajouté votre produit au panier !');
+    }
+
+    localStorage.setItem('camerasInBasket', JSON.stringify(basketItems));
+}
+
 onLoadAddProduct();
