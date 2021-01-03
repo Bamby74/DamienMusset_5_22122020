@@ -33,7 +33,7 @@ const showProduct = async() => {
                         <p class="cam_info-description">${product.description}</p>
                         <div class="cam_lastline">
                             <select name="lenses" id="lense-select">
-                                <option id="option" value="">Choisissez un objectif<option>
+                                <option id="option" value="">Choisissez un objectif</option>
                                 ${showLenses(product.lenses)}
                             </select>
                             <div class="cam_lastline-price">${product.price/100}€</div>
@@ -54,8 +54,8 @@ showProduct();
 
 const showLenses = (lenses) => {
     let options='';
-    lenses.forEach(lense => {
-        options += `<option value='${lense}'>${lense}<option>`;
+    lenses.forEach((lense) => {
+        options += `<option value='${lense}'>${lense}</option>`;
     });
     return options;
 };
@@ -71,7 +71,6 @@ function onLoadAddProduct() {
 function addProduct(product) {
     
     let productNumbers = localStorage.getItem('product');
-
     productNumbers=parseInt(productNumbers);
 
     if (productNumbers) {
@@ -93,6 +92,7 @@ function addProduct(product) {
 function setItems(product) {
     let basketItems = localStorage.getItem('camerasInBasket');
     basketItems = JSON.parse(basketItems);
+    
     
     if(basketItems != null) {
         
