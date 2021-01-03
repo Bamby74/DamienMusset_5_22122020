@@ -140,25 +140,42 @@ const validForm = () => {
         event.stopPropagation();
 
         let formIsInvalid = '';
-        let firstName = document.getElementById('firstName');
-        let lastName = document.getElementById('lastName');
-        let adress = document.getElementById('adress');
-        let city = document.getElementById('city');
-        let email = document.getElementById('email');
+        let firstName = document.getElementById('firstName').value;
+        let lastName = document.getElementById('lastName').value;
+        let adress = document.getElementById('adress').value;
+        let city = document.getElementById('city').value;
+        let email = document.getElementById('email').value;
 
-        if (/[0-9]/.test(lastName) || /!,.;:()?~%&^/.test(lastName) || !lastName) 
-            formIsInvalid += "Veuillez renseigner un Nom valable";
-        if (/[0-9]/.test(firstName) || /[!,.;:()?~%&^]/.test(firstName) || !firstname)
-            formIsInvalid += "Veuillez renseigner un Prénom valable";
-        if (!adress)
-            formIsInvalid += "Veuillez renseigner votre adresse";
-        if (/[0-9]/.test(city) || !city)
-            formIsInvalid += "Veuillez renseigner votre ville";
+        if (/[0-9]/.test(lastName) || /!,.;:()?~%&^/.test(lastName) || !lastName) { 
+            formIsInvalid += "Veuillez renseigner un Nom valable \n";
+        }
+        if (/[0-9]/.test(firstName) || /[!,.;:()?~%&^]/.test(firstName) || !firstName) {
+            formIsInvalid += "Veuillez renseigner un Prénom valable \n";
+        }
+        if (!adress) {
+            formIsInvalid += "Veuillez renseigner votre adresse \n";
+        }
+        if (/[0-9]/.test(city) || !city) {
+            formIsInvalid += "Veuillez renseigner votre ville \n";
+        }
         /*if (/.+@.+\..+/.test(email)
             formIsInvalid += "Veuillez renseigner un email valable";*/
 
-        if (formIsInvalid) 
-            alert('Nous ne pouvons finaliser votre commande')
+        if (formIsInvalid) {
+            alert('Nous ne pouvons finaliser votre commande : \n' + formIsInvalid);
+        }
+        else {
+            const contact = {
+                fisrtName : firstName,
+                lastName : lastName,
+                adress : adress,
+                city : city,
+                email : email,
+            };
+            let camerasId = Object.keys(basketItems);
+            console.log(contact);
+            console.log(camerasId);
+        }
 
 
     })  
