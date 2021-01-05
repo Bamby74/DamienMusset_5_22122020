@@ -308,4 +308,31 @@ form{
     }
 
 }  
+.congratulations{
+    background-color: rgb(250,129,101);
+    height: auto;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border-radius: 5px;
+    .gif{
+        object-fit: cover;
+        width: 100%;
+        border-radius: 5px;
+    }
+    #congratulations-title{
+        font-size: 1.2em;
+        margin: 10px 10px;
+        color: #FFFFFF;
+        p{
+            font-size: 0.8em;
+        }
+    }
+    span{
+        color: black;
+        font-size: 1em;
+    }
+}
  

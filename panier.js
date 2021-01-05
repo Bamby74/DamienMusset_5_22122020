@@ -167,15 +167,6 @@ const validForm = () => {
             };
             
             sendPost(order);
-            /*fetch('http://localhost:3000/api/cameras/order',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(order)
-                })
-            .then(response => response.json())
-            .then(response => console.log(response));*/
         }
     })  
 }
@@ -194,10 +185,14 @@ const sendPost = async(data) => {
     if (response.ok) {
         let responseData = await response.json();
             console.log(responseData);
-            alert('👏🏼 👏🏼 👏🏼 👏🏼 👏🏼 Félicitations 👏🏼 👏🏼 👏🏼 👏🏼 👏🏼 \n Votre commande est bien enregistrée !');
+            let orderId = responseData.orderId;
+            console.log(orderId);
+            localStorage.clear();
+            location.assign(`confirmation.html?order=${orderId}`);
+
     } else {
         console.log(response.status);
-            alert('Problème lors de l\'envoie de votre commande, veuillez renvoyer votre commande.');
+            alert('Problème lors de l\'envoie de votre commande, veuillez revalider votre commande.');
     }
        
 } 

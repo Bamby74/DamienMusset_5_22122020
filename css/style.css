@@ -259,4 +259,27 @@ form {
   form #lastNameValid {
     color: red; }
 
+.congratulations {
+  background-color: #fa8165;
+  height: auto;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 5px; }
+  .congratulations .gif {
+    object-fit: cover;
+    width: 100%;
+    border-radius: 5px; }
+  .congratulations #congratulations-title {
+    font-size: 1.2em;
+    margin: 10px 10px;
+    color: #FFFFFF; }
+    .congratulations #congratulations-title p {
+      font-size: 0.8em; }
+  .congratulations span {
+    color: black;
+    font-size: 1em; }
+
 /*# sourceMappingURL=style.css.map */
