@@ -1,18 +1,20 @@
-let cameras;
-const camMap = document.getElementById('cam_map');
 
+const camMap = document.getElementById('cam_map');
+let cameras;
 // API REQUEST
 const fetchCameras = async() => {
-let response = await fetch('http://localhost:3000/api/cameras')
-    if (response.ok) {
-    cameras = await response.json();
-    console.log(cameras);    
-    } else {
-    alert('Serveur indisponible');
+    try {
+        let response = await fetch('http://localhost:3000/api/cameras')
+        if (response.ok) {
+            cameras = await response.json();
+            console.log(cameras);    
+        } else {
+            alert('Serveur indisponible');
+        }
+    } catch (e){
+        console.log(e);
     }
 }  
-
- 
 
 fetchCameras();
 

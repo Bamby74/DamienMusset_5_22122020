@@ -5,7 +5,7 @@ basketItems = JSON.parse(basketItems);
 let basketTitle = document.getElementById('basket_map');
 
 const showBasket = () => {
-    if (basketItems == null) {
+    if (basketItems == null || basketItems == undefined) {
 
         basketTitle.innerHTML = (
             `
@@ -30,11 +30,11 @@ const showBasket = () => {
                             <p class="purchaseCam_infos-name">${camera.name}</p>
                             <p class="purchaseCam_price">Prix unitaire : ${camera.price/100}€</p>
                             <div class="calculPrice">
-                                <select name="quantity" id="purchaseCam_quantity-cam" value="">
+                                <select name="quantity" id="purchaseCam_quantity-cam"  value="">
                                     <option value="${camera.quantity}">${camera.quantity}</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <option value="3">3</option>    
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                     <option value="6">6</option>
@@ -47,97 +47,81 @@ const showBasket = () => {
                     </div>
                     ` 
                 )
-                let camQuantity = document.getElementById('purchaseCam_quantity-cam');
-                let camQuantitySelected = camQuantity.options[camQuantity.selectedIndex].value;
-                camQuantitySelected = parseInt(camQuantitySelected);
-                console.log(camQuantitySelected);
+                    //CALCUL RIX TOTAL / ARTICLE
+                    let camQuantity = document.getElementById('purchaseCam_quantity-cam');
+                    let camQuantitySelected = camQuantity.value;
+                    camQuantitySelected = parseInt(camQuantitySelected);
+                    
+                    let cameraTotalPrice = camera.price/100*camQuantitySelected;
+                        addPrice.push(cameraTotalPrice)
+                    
+                /*let cameras = Object.values(basketItems);*/
+                /*cameras.forEach((camera) => {
+                    let camQuantity = document.getElementById('purchaseCam_quantity-cam');*/
+                    /*camQuantity.addEventListener('change', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        let uploadCamQuantity = e.target.value;
+                        uploadCamQuantity = parseInt(uploadCamQuantity)
+                        console.log(basketItems);
+                        camera.quantity = uploadCamQuantity;
+                        localStorage.setItem('camerasInBasket', JSON.stringify(basketItems));
+                        location.reload();*/
+                    /*});
+                })*/ 
 
-                let cameraTotalPrice = camera.price/100*camQuantitySelected;
-                addPrice.push(cameraTotalPrice) ;  
+            });
+    
+                /*let cameraTotalPrice = camera.price/100*uploadCamQuantity;
+                addPrice.push(cameraTotalPrice) ; */ 
 
                 /*const trashCan = document.getElementsByClassName('trash-can');
                 trashCan.addEventListener('click', () => {
                     deleteCamInBasket(basketItems[product._id])
                 })*/
 
-                
-
-            });
             
-            const cumul = (accumulator,currentValue) => accumulator + currentValue;
-            let totalPrice = addPrice.reduce(cumul);
-            
-            let div = document.createElement('div');
-            basketTitle.appendChild(div);
-            div.classList.add('totalPrice')
-        
-            div.innerHTML = (
-                `
-                <h2>Total = ${totalPrice}€</h2>
-                <button id="ValidBasket"><i class="fas fa-check"></i>Valider mon panier</button>
+                const cumul = (accumulator,currentValue) => accumulator + currentValue;
+                let totalPrice = addPrice.reduce(cumul);
                 
-                `  
-            )  
-        };
+                let div = document.createElement('div');
+                basketTitle.appendChild(div);
+                div.classList.add('totalPrice')
+            
+                div.innerHTML = (
+                    `
+                    <h2>Total = ${totalPrice}€</h2>
+                    <button id="ValidBasket"><i class="fas fa-check"></i>Valider mon panier</button>
+                    
+                    `  
+                )  
+    };
 }
 
 showBasket();
+
 
 /*deleteCamInBasket = (basketItems[product._id]) => {
     localeStorage.clear(basketItems[product._id])
     location.reload();
 };*/
 
-const validBasket = document.querySelector('button');
-/*let form = document.createElement('div');
-basketTitle.appendChild(form);*/
+// BOUTON "VALIDER MON PANIER"
 
-
+let validBasket = document.querySelector('button');
 
 validBasket.addEventListener('click', () => {
    let form = document.getElementById('form');
    form.style.display = 'block'; 
-/*form.innerHTML = (
-        `<form action="" method="get" class="form-contact">
-            <h3>Remplissez ce formulaire afin de valider votre commande</h3>
-            <div class="form-container">
-                <div class="form-contact">
-                    <label for="name"> Nom : </label>
-                    <input type="text" name="name" id="lastName" required>
-                    <span id="lastNameValid"><span>
-                </div>
-                <div class="form-contact">
-                    <label for="givenName"> Prénom : </label>
-                    <input type="text" name="givenName" id="firstName" required>
-                </div>
-                <div class="form-contact">
-                    <label for="adress"> Adresse : </label>
-                    <input type="text" name="adress" id="adress" required>
-                </div>
-                <div class="form-contact">
-                    <label for="adress"> Ville : </label>
-                    <input type="text" name="city" id="city" required>
-                </div>
-                <div class="form-contact">
-                    <label for="email"> Email : </label>
-                    <input type="email" name="email" id="email" required>
-                </div>
-                <div class="form-contact form-button">
-                    <input id="validButton" type="submit" value="Valider ma commande !">
-                </div>
-            </div>
-        </form>
-        `
-    )*/
 })
 
-
+// VERIFIER LE FORMULAIRE POUR VALIDATION
+//  VALIDER LE FORMULAIRE
 
 const validForm = () => {
     const formContact = document.querySelector('form');
     formContact.addEventListener('submit', (e) => {
-        event.preventDefault();
-        event.stopPropagation();
+        e.preventDefault();
 
         let formIsInvalid = '';
         let firstName = document.getElementById('firstName').value;
@@ -158,26 +142,62 @@ const validForm = () => {
         if (/[0-9]/.test(city) || !city) {
             formIsInvalid += "Veuillez renseigner votre ville \n";
         }
-        /*if (/.+@.+\..+/.test(email)
-            formIsInvalid += "Veuillez renseigner un email valable";*/
-
+        /*if (/.+@.+\..+/.test(email)) {
+            formIsInvalid += "Veuillez renseigner un email valable";
+        }*/
         if (formIsInvalid) {
             alert('Nous ne pouvons finaliser votre commande : \n' + formIsInvalid);
         }
         else {
-            const contact = {
-                fisrtName : firstName,
+            let contact = {
+                firstName : firstName,
                 lastName : lastName,
-                adress : adress,
+                address : adress,
                 city : city,
                 email : email,
             };
-            let camerasId = Object.keys(basketItems);
-            console.log(contact);
-            console.log(camerasId);
+
+            let products = [];
+            products = Object.keys(basketItems);
+            
+            
+            let order = { 
+            contact,
+            products
+            };
+            
+            sendPost(order);
+            /*fetch('http://localhost:3000/api/cameras/order',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(order)
+                })
+            .then(response => response.json())
+            .then(response => console.log(response));*/
         }
-
-
     })  
 }
 validForm();
+
+
+
+const sendPost = async(data) => {    
+    let response = await fetch('http://localhost:3000/api/cameras/order', {
+        method: 'POST',
+        headers:  {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    if (response.ok) {
+        let responseData = await response.json();
+            console.log(responseData);
+            alert('👏🏼 👏🏼 👏🏼 👏🏼 👏🏼 Félicitations 👏🏼 👏🏼 👏🏼 👏🏼 👏🏼 \n Votre commande est bien enregistrée !');
+    } else {
+        console.log(response.status);
+            alert('Problème lors de l\'envoie de votre commande, veuillez renvoyer votre commande.');
+    }
+       
+} 

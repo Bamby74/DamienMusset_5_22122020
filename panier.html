@@ -18,47 +18,48 @@
         <nav class="nav-icones">
             <a href="./panier.html">
                 <i id="basket_icon" class="fas fa-shopping-cart"></i>
-                <div class="product_in-basket"><span id="product-count"></span></div>
             </a>
             <a id="home_icon" href="./index.html"><i class="fas fa-home"></i></a>
         </nav>
     </header>
 
-    <section id="basket_map">
-    <div id="basketList"></div>
-    <div id="form">
-        <form action="" method="get" class="form-contact">
-            <h3>Remplissez ce formulaire afin de valider votre commande</h3>
-            <div class="form-container">
-                <div class="form-contact">
-                    <label for="name"> Nom : </label>
-                    <input type="text" name="name" id="lastName" required>
-                    <span id="lastNameValid"><span>
+    <main>
+        <section id="basket_map">
+        <div id="basketList"></div>
+        <div id="form">
+            <form action="" method="get" class="form-contact">
+                <h3>Remplissez ce formulaire afin de valider votre commande</h3>
+                <div class="form-container">
+                    <div class="form-contact">
+                        <label for="name"> Nom : </label>
+                        <input type="text" name="name" id="lastName" required>
+                        <span id="lastNameValid"><span>
+                    </div>
+                    <div class="form-contact">
+                        <label for="givenName"> Prénom : </label>
+                        <input type="text" name="givenName" id="firstName" required>
+                    </div>
+                    <div class="form-contact">
+                        <label for="adress"> Adresse : </label>
+                        <input type="text" name="adress" id="adress" required>
+                    </div>
+                    <div class="form-contact">
+                        <label for="city"> Ville : </label>
+                        <input type="text" name="city" id="city" required>
+                    </div>
+                    <div class="form-contact">
+                        <label for="email"> Email : </label>
+                        <input type="email" name="email" id="email" required>
+                    </div>
+                    <div class="form-contact form-button">
+                        <input id="validButton" type="submit" value="Valider ma commande !">
+                    </div>
                 </div>
-                <div class="form-contact">
-                    <label for="givenName"> Prénom : </label>
-                    <input type="text" name="givenName" id="firstName" required>
-                </div>
-                <div class="form-contact">
-                    <label for="adress"> Adresse : </label>
-                    <input type="text" name="adress" id="adress" required>
-                </div>
-                <div class="form-contact">
-                    <label for="adress"> Ville : </label>
-                    <input type="text" name="city" id="city" required>
-                </div>
-                <div class="form-contact">
-                    <label for="email"> Email : </label>
-                    <input type="email" name="email" id="email" required>
-                </div>
-                <div class="form-contact form-button">
-                    <input id="validButton" type="submit" value="Valider ma commande !">
-                </div>
-            </div>
-        </form>
-    </div>
-    </section>
-
+            </form>
+        </div>
+        </section>
+    </main>
+    
      <footer>
         <ul>
             <li>A propos</li>

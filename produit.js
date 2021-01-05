@@ -6,13 +6,21 @@ const url = new URL (`/api/cameras/${id}`, 'http://localhost:3000/api/cameras');
 
 console.log(url);
 let product;
-
 const fetchProduct = async() => {
-    product =await fetch(url)
-        .then(res => res.json());
-        console.log(product);
-};
- fetchProduct();
+    try{
+        let response = await fetch(url)
+        if (response.ok) {
+            product = await response.json();
+        } else {
+            alert('Serveur indisponible');
+        }
+    } catch(e) {
+        console.log(e);
+    }
+ }
+    
+
+fetchProduct();
 
 
 const showProduct = async() => {
@@ -60,13 +68,6 @@ const showLenses = (lenses) => {
     return options;
 };
   
-function onLoadAddProduct() {
-    let productNumbers = localStorage.getItem('product');
-    let productCount= document.getElementById('product-count');
-    if (productNumbers) {
-        productCount.textContent = productNumbers;
-    }
-};
 
 function addProduct(product) {
     
@@ -75,15 +76,9 @@ function addProduct(product) {
 
     if (productNumbers) {
         localStorage.setItem('product', productNumbers + 1)
-            let productBasket = document.getElementById('product_in-basket');
-            let productCount= document.getElementById('product-count');
-            productCount.textContent = productNumbers + 1;
         
     }   else {
         localStorage.setItem('product',1);
-            let productBasket = document.getElementById('product_in-basket');
-            let productCount= document.getElementById('product-count');
-            productCount.textContent = 1 ;
     }
     setItems(product);
 } 
@@ -115,5 +110,3 @@ function setItems(product) {
 
     localStorage.setItem('camerasInBasket', JSON.stringify(basketItems));
 }
-
-onLoadAddProduct();

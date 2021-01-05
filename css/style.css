@@ -1,6 +1,8 @@
 body {
   background: black;
-  margin: 0; }
+  margin: 0;
+  display: table;
+  width: 100%; }
 
 header {
   height: 70px;
@@ -27,21 +29,6 @@ header {
     position: absolute;
     top: 32px; }
 
-.product_in-basket {
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  background: red;
-  position: relative;
-  top: -15px;
-  right: -16px; }
-  .product_in-basket span {
-    position: relative;
-    left: 6px;
-    color: white;
-    font-weight: bold;
-    font-size: 0.8em; }
-
 h2 {
   margin: 40px 40px;
   color: #FFFF;
@@ -53,6 +40,13 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center; }
+  @media only screen and (min-width: 800px) {
+    #cam_map {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-left: 80px;
+      margin-right: 80px; } }
 
 .cam-card {
   background-color: #FFFF;
@@ -61,6 +55,11 @@ h2 {
   margin: 20px 10px 20px 10px;
   border-radius: 20px;
   box-shadow: 0 0 2px 1px rgba(255, 255, 255, 0.993); }
+  @media only screen and (min-width: 800px) {
+    .cam-card {
+      width: 30%;
+      min-height: 425px;
+      min-width: 290px; } }
   .cam-card .cam-photo {
     width: 100%;
     height: 50%; }
@@ -84,14 +83,17 @@ h2 {
       height: auto;
       align-items: center;
       line-height: 20px; }
+      .cam-card .cam-info .btn:hover {
+        background: red;
+        transition: all 400ms ease-in-out; }
       .cam-card .cam-info .btn i {
         margin: 0 5px 0 5px; }
       .cam-card .cam-info .btn.btn_add-to-basket {
         width: 200px; }
         .cam-card .cam-info .btn.btn_add-to-basket:hover {
           background: #FF0000;
-          transform: scale(1.1);
-          transition: all 300ms; }
+          color: red;
+          transition: all 200ms; }
   .cam-card .cam_lastline {
     display: flex;
     justify-content: space-between; }
@@ -131,13 +133,16 @@ ul {
   #basket_map h1 {
     color: #ffffff;
     font-size: 3em;
-    font-family: 'Shadows Into Light'; }
+    font-family: 'Shadows Into Light';
+    margin-left: 20px;
+    margin-right: 20px; }
     #basket_map h1 i {
       font-size: 2em; }
   #basket_map #basket_icon {
     color: #ffffff;
-    font-size: 4em;
-    margin-top: 40px; }
+    font-size: 2em;
+    margin-top: 40px;
+    transform: rotate(180deg); }
 
 .products_container {
   margin: 50px 100px 0px 100px; }
@@ -215,9 +220,8 @@ form {
   margin: auto;
   margin: auto;
   padding: 10px;
-  position: absolute;
-  bottom: 40%;
-  left: 8%;
+  position: relative;
+  bottom: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -226,24 +230,28 @@ form {
     margin-left: 20px;
     margin-right: 20px; }
   form .form-container {
-    text-align: left; }
+    text-align: center; }
   form .form-contact {
     display: table; }
   form label, form input {
     display: table-cell;
     margin-bottom: 10px; }
-  form label {
-    width: 90px; }
   form input:not(#validButton) {
-    width: 110px;
     border-radius: 5px;
     border: 1px grey solid; }
-    form input:not(#validButton):focus {
-      border: 1px red solid; }
   form #validButton {
     margin-left: auto;
     margin-right: auto;
-    width: auto; }
+    width: auto;
+    height: 30px;
+    border-radius: 5px; }
+    form #validButton:hover {
+      transform: scale(1.1);
+      transition: transform 150ms; }
+  form .form-contact {
+    display: flex;
+    flex-direction: column;
+    width: 300px; }
   form .form-button {
     margin-left: auto;
     margin-right: auto;
