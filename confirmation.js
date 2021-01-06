@@ -1,6 +1,10 @@
+//RÉCUPÉRATION ORDER ID ET PRIX TOTAL DE LA COMMANDE
 const congratulationsDisplay = () => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('order');
+
+    let totalPrice = localStorage.getItem('totalPrice');
+    totalPrice = JSON.parse(totalPrice);
 
     let image = document.getElementById('congratulations-image');
     let title = document.getElementById('congratulations-title');
@@ -28,10 +32,16 @@ const congratulationsDisplay = () => {
         title.innerHTML = (
            `
             <h2 id="congratulations-title">📷 FÉLICITATIONS 📷 </h2>
-            <p>Votre commande n° <span id="id">${id}</span> est validée</p>
+            <p>Votre commande n° <span id="id">${id}</span> est validée.</p>
+            <p>Montant de votre commande : </br>
+            </br>
+            <strong>${totalPrice}€</strong>
+            </p>
             `
         )
     }
-
+    console.log()
+    localStorage.clear();
 }
 congratulationsDisplay();
+

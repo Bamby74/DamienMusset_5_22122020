@@ -17,13 +17,13 @@ header{
         width:100px;
         height:90%;
     }
-    #home_icon, #basket_icon{
+    #home_icon, #basket_logo{
         text-decoration:none;
         color:black;
         font-size:1.5em;
     }
 }
-.nav-icones{
+.nav_icones{
     display: flex;
     justify-content: space-between;
     width: 75px;
@@ -32,6 +32,9 @@ header{
         position:absolute;
         top:32px;
     }
+    &.confirm{
+        justify-content: center;
+    }
     
 }
 
@@ -39,7 +42,7 @@ h2{
     margin: 40px 40px;
     color: #FFFF;
     text-align: center;
-    font-family: 'Shadows Into Light';
+    font-family: 'Staatliches', cursive;
     font-size:3em;
 }
 #cam_map{
@@ -55,7 +58,7 @@ h2{
         
     }
 }
-.cam-card{
+.cam_card{
     background-color: #FFFF;
     width: 80%;
     height: auto;
@@ -67,11 +70,11 @@ h2{
         min-height: 425px;
         min-width: 290px; 
     }
-    .cam-photo{
+    .cam_photo{
         width: 100%;
         height: 50%;
     }
-    .cam-info{
+    .cam_info{
         margin:0px 10px 10px 10px;
         .cam_info-name{
             font-weight: 900;
@@ -93,7 +96,7 @@ h2{
             align-items:center;
             line-height: 20px;
             &:hover{
-                background: red;
+                background-color: red;
                 transition: all 400ms ease-in-out;
             }
             i{
@@ -103,7 +106,6 @@ h2{
                 width: 200px;
                 &:hover{
                     background:#FF0000;
-                    color: red;
                     transition: all 200ms ;
                 }
 
@@ -120,7 +122,7 @@ h2{
             font-size: 20px;
             text-align:right; 
         }
-    .cam-photo-img {
+    .cam_photo-img {
         object-fit: cover;
         width: 100%;
         height: 100%;
@@ -139,21 +141,25 @@ footer{
     padding: $padding;
     padding-top: 5px;
     padding-bottom: 5px;
+    font-family: 'Staatliches', cursive;
 }
 ul{
     list-style: none;
     margin: 0;
-    font-family: 'Shadows Into Light';
     font-weight: bold;
     text-align: right;
     font-size: 1.2em;
+    li{
+        cursor: pointer;
+    }
 }
 #basket_map {
     text-align: center;
+    min-height: 530px;
     h1 {
         color: #ffffff;
         font-size: 3em;
-        font-family: 'Shadows Into Light';
+        font-family: 'Staatliches', cursive;
         margin-left: 20px;
         margin-right: 20px;
         i{
@@ -234,7 +240,6 @@ ul{
     button{
         margin-bottom: 20px;
         padding: 0px;
-        background: red;
         color:#FFFFFF;
         border-radius: 5px;
         width: 150px;
@@ -247,6 +252,12 @@ ul{
         i{
             margin-right: 10px;
         }
+    }
+    #valid_basket{
+        background: green;
+    }
+    #delete_basket{
+        background: red;
     }
 }   
 #form{
@@ -268,11 +279,15 @@ form{
         margin-left: 20px;
         margin-right: 20px; 
     }
-    .form-container{
+    .form_container{
         text-align: center;
     }
-    .form-contact{
+    .form_contact{
         display: table;
+        align-items: center;
+    }
+    label{
+        font-style: italic;
     }
     label, input{
         display: table-cell;
@@ -281,6 +296,7 @@ form{
     input:not(#validButton){
         border-radius: 5px;
         border: 1px grey solid;
+        width: 250px;
     }
     #validButton{
         margin-left: auto;
@@ -293,12 +309,12 @@ form{
             transition: transform 150ms;
         }
     }
-    .form-contact{
+    .form_contact{
         display: flex;
         flex-direction: column;
         width: 300px;
     }
-    .form-button{
+    .form_button{
         margin-left: auto;
         margin-right: auto;
         margin-top: 10px;
@@ -317,6 +333,7 @@ form{
     margin-top: 40px;
     margin-bottom: 40px;
     border-radius: 5px;
+    padding-bottom: 10px;
     .gif{
         object-fit: cover;
         width: 100%;
@@ -333,6 +350,10 @@ form{
     span{
         color: black;
         font-size: 1em;
+    }
+    strong{
+        color: black;
+        font-size: 2em;
     }
 }
  

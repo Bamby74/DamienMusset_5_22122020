@@ -32,11 +32,11 @@ const showProduct = async() => {
         `
         <h2>Découvrez le ${product.name}</h2>
         <div id="cam_map">
-            <article class="cam-card">
-                    <div class="cam-photo">
-                        <img class="cam-photo-img" src="${product.imageUrl}" alt="Camera">
+            <article class="cam_card">
+                    <div class="cam_photo">
+                        <img class="cam_photo-img" src="${product.imageUrl}" alt="Camera">
                     </div>
-                    <div class="cam-info">
+                    <div class="cam_info">
                         <p class="cam_info-name">${product.name}</p>
                         <p class="cam_info-description">${product.description}</p>
                         <div class="cam_lastline">
@@ -59,7 +59,19 @@ const showProduct = async() => {
 
 showProduct();
 
+//ANIMATION ICON PANIER
+const basketLogoColor = () => {
+  let productNumbers = localStorage.getItem('product');
+    productNumbers=parseInt(productNumbers);
 
+    if (productNumbers) {
+           let basketLogo = document.getElementById('basket_logo');
+            basketLogo.style.color = 'red';
+    }   
+}
+basketLogoColor();
+
+//LISTE DEROULANTE CHOIX OBJECTIF
 const showLenses = (lenses) => {
     let options='';
     lenses.forEach((lense) => {
@@ -67,27 +79,30 @@ const showLenses = (lenses) => {
     });
     return options;
 };
-  
 
-function addProduct(product) {
+//FONCTION QUANTITÉ TOTAL PRODUITS  
+const addProduct = (product) => {
     
     let productNumbers = localStorage.getItem('product');
     productNumbers=parseInt(productNumbers);
 
     if (productNumbers) {
         localStorage.setItem('product', productNumbers + 1)
-        
+           let basketLogo = document.getElementById('basket_logo');
+            basketLogo.style.color = 'red';
     }   else {
         localStorage.setItem('product',1);
+           let basketLogo = document.getElementById('basket_logo');
+            basketLogo.style.color = 'red';
     }
     setItems(product);
 } 
 
 
-function setItems(product) {
+//ENVOIE DONNÉES PRODUITS DANS LOCALSTORAGE
+const setItems = (product)  => {
     let basketItems = localStorage.getItem('camerasInBasket');
     basketItems = JSON.parse(basketItems);
-    
     
     if(basketItems != null) {
         

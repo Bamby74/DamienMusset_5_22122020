@@ -1,8 +1,10 @@
+//RÉCUPÉRATION DES PRODUITS DANS LOCALSTORAGE
 let basketItems = localStorage.getItem('camerasInBasket');
 basketItems = JSON.parse(basketItems);
 
-
+//AFFICHAGE PRODUIT DANS LOCALSTORAGE SI PRÉSENTS
 let basketTitle = document.getElementById('basket_map');
+
 
 const showBasket = () => {
     if (basketItems == null || basketItems == undefined) {
@@ -10,7 +12,9 @@ const showBasket = () => {
         basketTitle.innerHTML = (
             `
             <h1>
-                <i id="basket_icon" class="fas fa-shopping-cart"></i><br>
+                <i id="basket_icon" class="fas fa-shopping-cart"></i>
+                </br>
+                </br>
                 Votre panier est vide !
             </h1>
             `
@@ -19,10 +23,12 @@ const showBasket = () => {
             let cameras = Object.values(basketItems);
             console.log(cameras);
             let addPrice = [];
+
+            let basketList = document.getElementById('basket_list');
             
             cameras.forEach((camera) => {
                 
-                basketTitle.innerHTML += (
+                basketList.innerHTML += (
                     `
                     <div class="purchaseCam"> 
                         <img class="purchaseCam-image" src='${camera.imageUrl}' alt='Photo de la caméra ${camera.name}'>
@@ -47,13 +53,14 @@ const showBasket = () => {
                     </div>
                     ` 
                 )
-                    //CALCUL RIX TOTAL / ARTICLE
+                    //CALCUL PRIX TOTAL / ARTICLE
                     let camQuantity = document.getElementById('purchaseCam_quantity-cam');
-                    let camQuantitySelected = camQuantity.value;
-                    camQuantitySelected = parseInt(camQuantitySelected);
+                    camQuantity = camQuantity.value;
+                    camQuantity = parseInt(camQuantity);
                     
-                    let cameraTotalPrice = camera.price/100*camQuantitySelected;
-                        addPrice.push(cameraTotalPrice)
+                    let cameraTotalPrice = camera.price/100 * camQuantity;
+                        addPrice.push(cameraTotalPrice);
+
                     
                 /*let cameras = Object.values(basketItems);*/
                 /*cameras.forEach((camera) => {
@@ -71,27 +78,28 @@ const showBasket = () => {
                 })*/ 
 
             });
-    
-                /*let cameraTotalPrice = camera.price/100*uploadCamQuantity;
-                addPrice.push(cameraTotalPrice) ; */ 
 
                 /*const trashCan = document.getElementsByClassName('trash-can');
                 trashCan.addEventListener('click', () => {
                     deleteCamInBasket(basketItems[product._id])
                 })*/
 
-            
+                // CALCUL PRIX TOTAL
                 const cumul = (accumulator,currentValue) => accumulator + currentValue;
                 let totalPrice = addPrice.reduce(cumul);
+
+                localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
                 
+                // CREATION BOUTON VALIDER LA COMMANDE & VIDER LE PANIER
                 let div = document.createElement('div');
                 basketTitle.appendChild(div);
                 div.classList.add('totalPrice')
             
                 div.innerHTML = (
                     `
-                    <h2>Total = ${totalPrice}€</h2>
-                    <button id="ValidBasket"><i class="fas fa-check"></i>Valider mon panier</button>
+                    <h2>Total = <span id="final-price">${totalPrice}</span>€</h2>
+                    <button id="valid_basket"><i class="fas fa-check"></i>Valider mon panier</button></br>
+                    <button id="delete_basket"><i class="fas fa-trash-alt"></i>Vider le panier</button>
                     
                     `  
                 )  
@@ -101,19 +109,29 @@ const showBasket = () => {
 showBasket();
 
 
-/*deleteCamInBasket = (basketItems[product._id]) => {
-    localeStorage.clear(basketItems[product._id])
-    location.reload();
-};*/
+// ACTION BOUTON "VALIDER MON PANIER"
+const validButton = () => {
+    let validBasket = document.getElementById('valid_basket');
 
-// BOUTON "VALIDER MON PANIER"
+    validBasket.addEventListener('click', () => {
+        let form = document.getElementById('form');
+        form.style.display = 'block'; 
+    })
+}
+validButton();
 
-let validBasket = document.querySelector('button');
 
-validBasket.addEventListener('click', () => {
-   let form = document.getElementById('form');
-   form.style.display = 'block'; 
-})
+// ACTION BOUTON VIDER LE PANIER
+const deleteButton = () => {
+    let deleteBasket = document.getElementById('delete_basket');
+
+    deleteBasket.addEventListener('click', () => {
+        localStorage.clear();
+        location.reload();
+    })
+}
+deleteButton();
+
 
 // VERIFIER LE FORMULAIRE POUR VALIDATION
 //  VALIDER LE FORMULAIRE
@@ -126,7 +144,7 @@ const validForm = () => {
         let formIsInvalid = '';
         let firstName = document.getElementById('firstName').value;
         let lastName = document.getElementById('lastName').value;
-        let adress = document.getElementById('adress').value;
+        let address = document.getElementById('address').value;
         let city = document.getElementById('city').value;
         let email = document.getElementById('email').value;
 
@@ -136,7 +154,7 @@ const validForm = () => {
         if (/[0-9]/.test(firstName) || /[!,.;:()?~%&^]/.test(firstName) || !firstName) {
             formIsInvalid += "Veuillez renseigner un Prénom valable \n";
         }
-        if (!adress) {
+        if (!address) {
             formIsInvalid += "Veuillez renseigner votre adresse \n";
         }
         if (/[0-9]/.test(city) || !city) {
@@ -152,7 +170,7 @@ const validForm = () => {
             let contact = {
                 firstName : firstName,
                 lastName : lastName,
-                address : adress,
+                address : address,
                 city : city,
                 email : email,
             };
@@ -163,9 +181,9 @@ const validForm = () => {
             
             let order = { 
             contact,
-            products
+            products,
             };
-            
+
             sendPost(order);
         }
     })  
@@ -173,7 +191,7 @@ const validForm = () => {
 validForm();
 
 
-
+//REQUÊTE SERVEUR POUR L'ENVOI DES DONNÉES DE COMMANDE
 const sendPost = async(data) => {    
     let response = await fetch('http://localhost:3000/api/cameras/order', {
         method: 'POST',
@@ -187,7 +205,6 @@ const sendPost = async(data) => {
             console.log(responseData);
             let orderId = responseData.orderId;
             console.log(orderId);
-            localStorage.clear();
             location.assign(`confirmation.html?order=${orderId}`);
 
     } else {

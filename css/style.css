@@ -15,25 +15,27 @@ header {
   header img {
     width: 100px;
     height: 90%; }
-  header #home_icon, header #basket_icon {
+  header #home_icon, header #basket_logo {
     text-decoration: none;
     color: black;
     font-size: 1.5em; }
 
-.nav-icones {
+.nav_icones {
   display: flex;
   justify-content: space-between;
   width: 75px;
   align-items: center; }
-  .nav-icones #basket_icon {
+  .nav_icones #basket_icon {
     position: absolute;
     top: 32px; }
+  .nav_icones.confirm {
+    justify-content: center; }
 
 h2 {
   margin: 40px 40px;
   color: #FFFF;
   text-align: center;
-  font-family: 'Shadows Into Light';
+  font-family: 'Staatliches', cursive;
   font-size: 3em; }
 
 #cam_map {
@@ -48,7 +50,7 @@ h2 {
       margin-left: 80px;
       margin-right: 80px; } }
 
-.cam-card {
+.cam_card {
   background-color: #FFFF;
   width: 80%;
   height: auto;
@@ -56,19 +58,19 @@ h2 {
   border-radius: 20px;
   box-shadow: 0 0 2px 1px rgba(255, 255, 255, 0.993); }
   @media only screen and (min-width: 800px) {
-    .cam-card {
+    .cam_card {
       width: 30%;
       min-height: 425px;
       min-width: 290px; } }
-  .cam-card .cam-photo {
+  .cam_card .cam_photo {
     width: 100%;
     height: 50%; }
-  .cam-card .cam-info {
+  .cam_card .cam_info {
     margin: 0px 10px 10px 10px; }
-    .cam-card .cam-info .cam_info-name {
+    .cam_card .cam_info .cam_info-name {
       font-weight: 900;
       font-size: 20px; }
-    .cam-card .cam-info .btn {
+    .cam_card .cam_info .btn {
       display: block;
       margin-left: auto;
       margin-right: auto;
@@ -83,25 +85,24 @@ h2 {
       height: auto;
       align-items: center;
       line-height: 20px; }
-      .cam-card .cam-info .btn:hover {
-        background: red;
+      .cam_card .cam_info .btn:hover {
+        background-color: red;
         transition: all 400ms ease-in-out; }
-      .cam-card .cam-info .btn i {
+      .cam_card .cam_info .btn i {
         margin: 0 5px 0 5px; }
-      .cam-card .cam-info .btn.btn_add-to-basket {
+      .cam_card .cam_info .btn.btn_add-to-basket {
         width: 200px; }
-        .cam-card .cam-info .btn.btn_add-to-basket:hover {
+        .cam_card .cam_info .btn.btn_add-to-basket:hover {
           background: #FF0000;
-          color: red;
           transition: all 200ms; }
-  .cam-card .cam_lastline {
+  .cam_card .cam_lastline {
     display: flex;
     justify-content: space-between; }
-  .cam-card .cam_lastline-price {
+  .cam_card .cam_lastline-price {
     font-weight: 700;
     font-size: 20px;
     text-align: right; }
-  .cam-card .cam-photo-img {
+  .cam_card .cam_photo-img {
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -118,22 +119,25 @@ footer {
   height: auto;
   padding: 10px 20px 10px 20px;
   padding-top: 5px;
-  padding-bottom: 5px; }
+  padding-bottom: 5px;
+  font-family: 'Staatliches', cursive; }
 
 ul {
   list-style: none;
   margin: 0;
-  font-family: 'Shadows Into Light';
   font-weight: bold;
   text-align: right;
   font-size: 1.2em; }
+  ul li {
+    cursor: pointer; }
 
 #basket_map {
-  text-align: center; }
+  text-align: center;
+  min-height: 530px; }
   #basket_map h1 {
     color: #ffffff;
     font-size: 3em;
-    font-family: 'Shadows Into Light';
+    font-family: 'Staatliches', cursive;
     margin-left: 20px;
     margin-right: 20px; }
     #basket_map h1 i {
@@ -200,7 +204,6 @@ ul {
 .totalPrice button {
   margin-bottom: 20px;
   padding: 0px;
-  background: red;
   color: #FFFFFF;
   border-radius: 5px;
   width: 150px;
@@ -210,6 +213,10 @@ ul {
     transition: transform 150ms; }
   .totalPrice button i {
     margin-right: 10px; }
+.totalPrice #valid_basket {
+  background: green; }
+.totalPrice #delete_basket {
+  background: red; }
 
 #form {
   display: none; }
@@ -229,16 +236,20 @@ form {
   form h3 {
     margin-left: 20px;
     margin-right: 20px; }
-  form .form-container {
+  form .form_container {
     text-align: center; }
-  form .form-contact {
-    display: table; }
+  form .form_contact {
+    display: table;
+    align-items: center; }
+  form label {
+    font-style: italic; }
   form label, form input {
     display: table-cell;
     margin-bottom: 10px; }
   form input:not(#validButton) {
     border-radius: 5px;
-    border: 1px grey solid; }
+    border: 1px grey solid;
+    width: 250px; }
   form #validButton {
     margin-left: auto;
     margin-right: auto;
@@ -248,11 +259,11 @@ form {
     form #validButton:hover {
       transform: scale(1.1);
       transition: transform 150ms; }
-  form .form-contact {
+  form .form_contact {
     display: flex;
     flex-direction: column;
     width: 300px; }
-  form .form-button {
+  form .form_button {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px; }
@@ -267,7 +278,8 @@ form {
   margin-right: auto;
   margin-top: 40px;
   margin-bottom: 40px;
-  border-radius: 5px; }
+  border-radius: 5px;
+  padding-bottom: 10px; }
   .congratulations .gif {
     object-fit: cover;
     width: 100%;
@@ -281,5 +293,8 @@ form {
   .congratulations span {
     color: black;
     font-size: 1em; }
+  .congratulations strong {
+    color: black;
+    font-size: 2em; }
 
 /*# sourceMappingURL=style.css.map */
