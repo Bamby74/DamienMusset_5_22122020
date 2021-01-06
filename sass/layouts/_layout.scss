@@ -4,6 +4,8 @@ body{
     display: table;
     width: 100%;
 }
+
+//PAGE GENERAL
 $padding : 10px 20px 10px 20px;
 header{
     height:70px;
@@ -173,6 +175,8 @@ ul{
         transform: rotate(180deg);
     }
 }
+
+//PAGE PRODUIT
 .products_container{
     margin:50px 100px 0px 100px;
     .product_header{
@@ -187,6 +191,15 @@ ul{
         .th_general{
             width: 80%;
         }
+    }
+}
+
+// PAGE PANIER
+#basket_list{
+    @include large-screen-basket {
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 .purchaseCam{
@@ -275,6 +288,9 @@ form{
     flex-direction:column;
     align-items: center;
     border-radius: 5px;
+    @include large-screen-basket {
+        width: 550px;
+    }
     h3{
         margin-left: 20px;
         margin-right: 20px; 
@@ -323,7 +339,9 @@ form{
         color: red;
     }
 
-}  
+}
+
+// PAGE CONFIRMATION
 .congratulations{
     background-color: rgb(250,129,101);
     height: auto;

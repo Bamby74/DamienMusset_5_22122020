@@ -161,6 +161,12 @@ ul {
     .products_container .product_header .th_general {
       width: 80%; }
 
+@media only screen and (min-width: 600px) {
+  #basket_list {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto; } }
+
 .purchaseCam {
   display: flex;
   margin: 20px 20px;
@@ -233,6 +239,9 @@ form {
   flex-direction: column;
   align-items: center;
   border-radius: 5px; }
+  @media only screen and (min-width: 600px) {
+    form {
+      width: 550px; } }
   form h3 {
     margin-left: 20px;
     margin-right: 20px; }
