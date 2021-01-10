@@ -51,15 +51,20 @@ const showProduct = async() => {
             </article>
         </div>   
         `);
-    const button = document.querySelector('button')
+    const button = document.querySelector('button');
     button.addEventListener('click', () => {
-        addProduct(product);
+        let selectLense = document.querySelector('select').value;
+        if (selectLense) {
+            addProduct(product);
+        } else {
+            alert('Veuillez choisir un objectif pour ajouter votre produit au panier !');
+        }
     }) 
 };  
 
 showProduct();
 
-//ANIMATION ICON PANIER
+//ANIMATION ICONE PANIER
 const basketLogoColor = () => {
   let productNumbers = localStorage.getItem('product');
     productNumbers=parseInt(productNumbers);
@@ -103,23 +108,42 @@ const addProduct = (product) => {
 const setItems = (product)  => {
     let basketItems = localStorage.getItem('camerasInBasket');
     basketItems = JSON.parse(basketItems);
-    
-    if(basketItems != null) {
-        
-        if(basketItems[product._id] == undefined) {
-            product.quantity = 0;
-            basketItems = {
-                ...basketItems,
-                [product._id]: product
+    console.log(basketItems)
+    let selectLense = document.querySelector('select').value;
+    console.log(selectLense)
+
+   if (basketItems) {
+       const findProductId = basketItems.find(item => item.id === product._id);
+            if (findProductId) {
+                const findProductLense = findProductId.lenses.find(lense => lense.name === selectLense);
+                
+                if (findProductLense){
+                    findProductLense.quantity += 1;
+                    console.log('cas1')
+                    alert('Vous avez ajouté une quantité de cet article dans votre panier !')
+                } else {
+                    findProductId.lenses.push({
+                        name : selectLense , 
+                        quantity: 1
+                        })
+                    console.log('cas2')
+                    alert('Vous avez ajouté votre produit dans votre panier !')
+                }
+            } else {
+                basketItems.push({
+                    id : product._id , 
+                    lenses: [{name: selectLense ,quantity : 1}] 
+                })
+                console.log('cas3')
+                alert('Vous avez ajouté votre produit dans votre panier !');
             }
-        }
-        basketItems[product._id].quantity += 1 ;
-        alert('Vous avez ajouté votre produit au panier !');
     } else {    
         product.quantity = 1 ; 
-        basketItems = {
-            [product._id]: product
-        }
+            basketItems = [{
+                id : product._id,
+                lenses : [{name: selectLense , quantity: product.quantity}],
+            }]
+            console.log('cas4')
         alert('Vous avez ajouté votre produit au panier !');
     }
 

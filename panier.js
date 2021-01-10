@@ -1,12 +1,30 @@
 //RÉCUPÉRATION DES PRODUITS DANS LOCALSTORAGE
 let basketItems = localStorage.getItem('camerasInBasket');
 basketItems = JSON.parse(basketItems);
-
+console.log(basketItems)
 //AFFICHAGE PRODUIT DANS LOCALSTORAGE SI PRÉSENTS
 let basketTitle = document.getElementById('basket_map');
 
+let basket;
 
-const showBasket = () => {
+const fetchCameras = async() => {
+    try {
+        let response = await fetch('http://localhost:3000/api/cameras')
+        if (response.ok) {
+            basket = await response.json();
+            console.log(basket);    
+        } else {
+            alert('Serveur indisponible');
+        }
+    } catch (e){
+        console.log(e);
+    }
+}  
+fetchCameras();
+
+const showBasket = async() => {
+    await fetchCameras();
+    
     if (basketItems == null || basketItems == undefined) {
 
         basketTitle.innerHTML = (
@@ -20,24 +38,35 @@ const showBasket = () => {
             `
         );
     }   else  {
+
             let cameras = Object.values(basketItems);
             console.log(cameras);
+
+            let cams = cameras.flatMap(appareil => appareil.lenses.map(lense => {
+                return {
+                    id: appareil.id,
+                    lense: lense.name,
+                    quantity: lense.quantity
+                }
+            }))
+            console.log(cams);
             let addPrice = [];
 
             let basketList = document.getElementById('basket_list');
             
-            cameras.forEach((camera) => {
-                
+            cams.forEach((cam) => {
+                const findCam = basket.find(camInBasket => camInBasket._id === cam.id);
+                console.log(findCam)
                 basketList.innerHTML += (
                     `
                     <div class="purchaseCam"> 
-                        <img class="purchaseCam-image" src='${camera.imageUrl}' alt='Photo de la caméra ${camera.name}'>
+                        <img class="purchaseCam-image" src='${findCam.imageUrl}' alt='Photo de la caméra ${basket.name}'>
                         <div class="purchaseCam_infos">
-                            <p class="purchaseCam_infos-name">${camera.name}</p>
-                            <p class="purchaseCam_price">Prix unitaire : ${camera.price/100}€</p>
+                            <p class="purchaseCam_infos-name">${findCam.name}</p>
+                            <p class="purchaseCam_price">Prix unitaire : ${findCam.price/100}€</p>
                             <div class="calculPrice">
                                 <select name="quantity" id="purchaseCam_quantity-cam"  value="">
-                                    <option value="${camera.quantity}">${camera.quantity}</option>
+                                    <option value="${cam.quantity}">${cam.quantity}</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>    
@@ -46,7 +75,7 @@ const showBasket = () => {
                                     <option value="6">6</option>
                                     <option value="7">7</option> 
                                 </select>
-                                <span class="purchaseCam_total">${camera.price/100*camera.quantity}€</span>
+                                <span class="purchaseCam_total">${findCam.price/100*cam.quantity}€</span>
                             </div>
                             <p class="trash-can"><i class="fas fa-trash-alt"></i></p>
                         </div>
@@ -54,18 +83,15 @@ const showBasket = () => {
                     ` 
                 )
                     //CALCUL PRIX TOTAL / ARTICLE
-                    let camQuantity = document.getElementById('purchaseCam_quantity-cam');
-                    camQuantity = camQuantity.value;
-                    camQuantity = parseInt(camQuantity);
-                    
-                    let cameraTotalPrice = camera.price/100 * camQuantity;
-                        addPrice.push(cameraTotalPrice);
-
-                    
-                /*let cameras = Object.values(basketItems);*/
-                /*cameras.forEach((camera) => {
-                    let camQuantity = document.getElementById('purchaseCam_quantity-cam');*/
-                    /*camQuantity.addEventListener('change', (e) => {
+                let camQuantity = document.getElementById('purchaseCam_quantity-cam');
+                camQuantity = camQuantity.value;
+                camQuantity = parseInt(camQuantity);
+                
+                let cameraTotalPrice = findCam.price/100 * camQuantity;
+                    addPrice.push(cameraTotalPrice);
+                
+                /*const changeQuantity = (e) => {
+                    camQuantity.addEventListener('change', () => {
                         e.preventDefault();
                         e.stopPropagation();
                         let uploadCamQuantity = e.target.value;
@@ -73,16 +99,14 @@ const showBasket = () => {
                         console.log(basketItems);
                         camera.quantity = uploadCamQuantity;
                         localStorage.setItem('camerasInBasket', JSON.stringify(basketItems));
-                        location.reload();*/
-                    /*});
-                })*/ 
-
+                        location.reload();
+                    })
+                }
+                changeQuantity();*/
+    
             });
 
-                /*const trashCan = document.getElementsByClassName('trash-can');
-                trashCan.addEventListener('click', () => {
-                    deleteCamInBasket(basketItems[product._id])
-                })*/
+                
 
                 // CALCUL PRIX TOTAL
                 const cumul = (accumulator,currentValue) => accumulator + currentValue;
@@ -119,7 +143,6 @@ const validButton = () => {
     })
 }
 validButton();
-
 
 // ACTION BOUTON VIDER LE PANIER
 const deleteButton = () => {
