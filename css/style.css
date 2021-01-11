@@ -181,7 +181,8 @@ ul {
 .purchaseCam_infos {
   text-align: left;
   margin-left: 20px;
-  color: #ffffff; }
+  color: #ffffff;
+  width: 176px; }
   .purchaseCam_infos .purchaseCam_infos-name {
     margin: 5px 0px; }
   .purchaseCam_infos .purchaseCam_infos-id {
@@ -189,11 +190,12 @@ ul {
     font-size: 0.7em; }
   .purchaseCam_infos .purchaseCam_lense {
     margin: 10px 0px; }
-  .purchaseCam_infos .trash-can {
+  .purchaseCam_infos #trash-can {
     width: 100%;
     text-align: right;
-    margin: 0; }
-    .purchaseCam_infos .trash-can i {
+    margin: 0;
+    cursor: pointer; }
+    .purchaseCam_infos #trash-can i {
       margin-top: 10px; }
 
 .calculPrice {

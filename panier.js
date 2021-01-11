@@ -38,7 +38,6 @@ const showBasket = async() => {
             `
         );
     }   else  {
-
             let cameras = Object.values(basketItems);
             console.log(cameras);
 
@@ -59,10 +58,11 @@ const showBasket = async() => {
                 console.log(findCam)
                 basketList.innerHTML += (
                     `
-                    <div class="purchaseCam"> 
+                    <article class="purchaseCam"> 
                         <img class="purchaseCam-image" src='${findCam.imageUrl}' alt='Photo de la caméra ${basket.name}'>
                         <div class="purchaseCam_infos">
-                            <p class="purchaseCam_infos-name">${findCam.name}</p>
+                            <h3 class="purchaseCam_infos-name">${findCam.name}</h3>
+                            <p>Objectif : ${cam.lense}</p>
                             <p class="purchaseCam_price">Prix unitaire : ${findCam.price/100}€</p>
                             <div class="calculPrice">
                                 <select name="quantity" id="purchaseCam_quantity-cam"  value="">
@@ -70,16 +70,16 @@ const showBasket = async() => {
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>    
-                                    <option value="4">4</option>
+                                    <option value="4">4</option>    
                                     <option value="5">5</option>
                                     <option value="6">6</option>
                                     <option value="7">7</option> 
                                 </select>
                                 <span class="purchaseCam_total">${findCam.price/100*cam.quantity}€</span>
                             </div>
-                            <p class="trash-can"><i class="fas fa-trash-alt"></i></p>
+                            <p id="trash-can" class="trash-can"><i class="fas fa-trash-alt"></i></p>
                         </div>
-                    </div>
+                    </article>
                     ` 
                 )
                     //CALCUL PRIX TOTAL / ARTICLE
@@ -87,6 +87,7 @@ const showBasket = async() => {
                 camQuantity = camQuantity.value;
                 camQuantity = parseInt(camQuantity);
                 
+
                 let cameraTotalPrice = findCam.price/100 * camQuantity;
                     addPrice.push(cameraTotalPrice);
                 
@@ -103,10 +104,18 @@ const showBasket = async() => {
                     })
                 }
                 changeQuantity();*/
-    
+               /*const deleteCam = () => {
+                    let deleteCamButton = document.getElementById('trash-can');
+
+                        deleteCamButton.addEventListener('click', () => {
+                            let camToDelete = deleteCamButton.closest('.purchaseCam');
+                            camToDelete.remove();
+                        })
+                }
+                deleteCam();*/
             });
 
-                
+
 
                 // CALCUL PRIX TOTAL
                 const cumul = (accumulator,currentValue) => accumulator + currentValue;
@@ -134,7 +143,9 @@ showBasket();
 
 
 // ACTION BOUTON "VALIDER MON PANIER"
-const validButton = () => {
+const validButton = async() => {
+    await fetchCameras();
+
     let validBasket = document.getElementById('valid_basket');
 
     validBasket.addEventListener('click', () => {
@@ -145,7 +156,9 @@ const validButton = () => {
 validButton();
 
 // ACTION BOUTON VIDER LE PANIER
-const deleteButton = () => {
+const deleteButton = async() => {
+    await fetchCameras();
+
     let deleteBasket = document.getElementById('delete_basket');
 
     deleteBasket.addEventListener('click', () => {
@@ -160,6 +173,7 @@ deleteButton();
 //  VALIDER LE FORMULAIRE
 
 const validForm = () => {
+
     const formContact = document.querySelector('form');
     formContact.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -199,14 +213,15 @@ const validForm = () => {
             };
 
             let products = [];
-            products = Object.keys(basketItems);
-            
+            basketItems.forEach((item) => {
+            products.push(item.id)
+            })
             
             let order = { 
             contact,
             products,
             };
-
+            console.log(order)
             sendPost(order);
         }
     })  
@@ -233,6 +248,5 @@ const sendPost = async(data) => {
     } else {
         console.log(response.status);
             alert('Problème lors de l\'envoie de votre commande, veuillez revalider votre commande.');
-    }
-       
+    }   
 } 
