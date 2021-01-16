@@ -232,9 +232,9 @@ ul{
         width: 100%;
         text-align: right;
         margin: 0;
-        cursor: pointer;
         i{
             margin-top: 10px;
+            cursor: pointer;
         }
     }
 }
@@ -242,7 +242,7 @@ ul{
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-    .purchaseCam_total{
+    #purchaseCam_total{
         color: red;
         font-size: 1.2em;
     }

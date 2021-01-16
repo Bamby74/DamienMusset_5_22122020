@@ -193,16 +193,16 @@ ul {
   .purchaseCam_infos #trash-can {
     width: 100%;
     text-align: right;
-    margin: 0;
-    cursor: pointer; }
+    margin: 0; }
     .purchaseCam_infos #trash-can i {
-      margin-top: 10px; }
+      margin-top: 10px;
+      cursor: pointer; }
 
 .calculPrice {
   display: flex;
   justify-content: space-between;
   margin-top: 10px; }
-  .calculPrice .purchaseCam_total {
+  .calculPrice #purchaseCam_total {
     color: red;
     font-size: 1.2em; }
 

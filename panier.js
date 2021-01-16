@@ -56,17 +56,25 @@ const showBasket = async() => {
             cams.forEach((cam) => {
                 const findCam = basket.find(camInBasket => camInBasket._id === cam.id);
                 console.log(findCam)
+
+                //CALCUL PRIX TOTAL / ARTICLE
+                let camQuantity = cam.quantity;
+        
+                let cameraTotalPrice = findCam.price/100 * camQuantity;
+                    addPrice.push(cameraTotalPrice);
+
                 basketList.innerHTML += (
                     `
-                    <article class="purchaseCam"> 
+                    <article class="purchaseCam" data-id="${cam.id}"> 
                         <img class="purchaseCam-image" src='${findCam.imageUrl}' alt='Photo de la caméra ${basket.name}'>
                         <div class="purchaseCam_infos">
                             <h3 class="purchaseCam_infos-name">${findCam.name}</h3>
-                            <p>Objectif : ${cam.lense}</p>
-                            <p class="purchaseCam_price">Prix unitaire : ${findCam.price/100}€</p>
+                            <p class="cam-id">${cam.id}</p>
+                            <p class="cam-lense">${cam.lense}</p>
+                            <p>Prix unitaire :<span class="purchaseCam_price"> ${findCam.price/100}</span>€</p>
                             <div class="calculPrice">
                                 <select name="quantity" id="purchaseCam_quantity-cam"  value="">
-                                    <option value="${cam.quantity}">${cam.quantity}</option>
+
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>    
@@ -75,54 +83,63 @@ const showBasket = async() => {
                                     <option value="6">6</option>
                                     <option value="7">7</option> 
                                 </select>
-                                <span class="purchaseCam_total">${findCam.price/100*cam.quantity}€</span>
+                                <span id="purchaseCam_total">${cameraTotalPrice}€</span>
                             </div>
                             <p id="trash-can" class="trash-can"><i class="fas fa-trash-alt"></i></p>
                         </div>
                     </article>
                     ` 
                 )
-                    //CALCUL PRIX TOTAL / ARTICLE
-                let camQuantity = document.getElementById('purchaseCam_quantity-cam');
-                camQuantity = camQuantity.value;
-                camQuantity = parseInt(camQuantity);
-                
 
-                let cameraTotalPrice = findCam.price/100 * camQuantity;
-                    addPrice.push(cameraTotalPrice);
-                
                 /*const changeQuantity = (e) => {
-                    camQuantity.addEventListener('change', () => {
-                        e.preventDefault();
-                        e.stopPropagation();
+                    document.getElementById('purchaseCam_quantity-cam').addEventListener('change', (e) => {
+                        
+                        
                         let uploadCamQuantity = e.target.value;
                         uploadCamQuantity = parseInt(uploadCamQuantity)
                         console.log(basketItems);
-                        camera.quantity = uploadCamQuantity;
+                        cam.quantity = uploadCamQuantity;
+                        console.log(cam)
                         localStorage.setItem('camerasInBasket', JSON.stringify(basketItems));
                         location.reload();
                     })
                 }
                 changeQuantity();*/
-               /*const deleteCam = () => {
-                    let deleteCamButton = document.getElementById('trash-can');
-
-                        deleteCamButton.addEventListener('click', () => {
-                            let camToDelete = deleteCamButton.closest('.purchaseCam');
-                            camToDelete.remove();
-                        })
-                }
-                deleteCam();*/
             });
+                // BOUTTON SUPPRIMER ARTICLE DU PANIER
+                let removeCamButton = document.getElementsByClassName('fas')
+                for (let i = 0 ; i < removeCamButton.length ; i++) {
+                    let button = removeCamButton[i]
+                    button.addEventListener('click',(e) => {
+                        let buttonClicked = e.target
+                        let deleteCamId = buttonClicked.parentElement.parentElement.parentElement.getElementsByClassName('cam-id')[0].innerText;
+                        let deleteCamLense = buttonClicked.parentElement.parentElement.parentElement.getElementsByClassName('cam-lense')[0].innerText;
+                        const findCamId = basketItems.find(item => item.id === deleteCamId);
+                        const findCamLense = findCamId.lenses.find(lense => lense.name === deleteCamLense);
+                        let indexFindCamLense = findCamId.lenses.indexOf(findCamLense);
+                        findCamId.lenses.splice(indexFindCamLense,1);
+                        localStorage.setItem('camerasInBasket', JSON.stringify(basketItems))
+                        buttonClicked.parentElement.parentElement.parentElement.remove();
+                        location.reload();                       
+                    })
+                }
 
-
+                /*// UPDATE LOCALSTORAGE
+                const deleteCamStorage = () => {
+                   let deleteCamId = buttonClicked.parentElement.parentElement.parentElement.getElementsByClassName('cam-id').value;
+                   let deleteCamLense = buttonClicked.parentElement.parentElement.parentElement.getElementsByClassName('cam-lense').value;
+                   const findCamId = basketItems.find(item => item.id === deleteCamId);
+                   const findCamLense = findCamId.lenses.find(lense => lense.name === deleteCamLense);
+                   findCamLense.remove();
+                   localStorage.setItem('camerasInBasket', JSON.stringify(basketItems))
+                }*/
 
                 // CALCUL PRIX TOTAL
                 const cumul = (accumulator,currentValue) => accumulator + currentValue;
                 let totalPrice = addPrice.reduce(cumul);
 
                 localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
-                
+        
                 // CREATION BOUTON VALIDER LA COMMANDE & VIDER LE PANIER
                 let div = document.createElement('div');
                 basketTitle.appendChild(div);
@@ -140,6 +157,25 @@ const showBasket = async() => {
 }
 
 showBasket();
+
+/*// CHANGEMENT PRIX EN FONCTION QUANTITE ARTICLE               
+const quantitySelected = async() => {
+    await fetchCameras();
+    let selectQuantity = document.querySelector('select');
+    selectQuantity.addEventListener('change', () => {
+        let cameraTotalPrice = findCam.price/100 * selectQuantity.value;
+        addPrice.push(cameraTotalPrice);
+        document.getElementById('purchaseCam_total').innerHTML = (
+            `
+            <span class="purchaseCam_total">${cameraTotalPrice}€</span>
+            `
+        )
+        console.log(cam)
+        console.log(cameras)
+        
+    })
+}*/
+
 
 
 // ACTION BOUTON "VALIDER MON PANIER"
