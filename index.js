@@ -1,4 +1,3 @@
-
 const camMap = document.getElementById('cam_map');
 let cameras;
 // API REQUEST
@@ -8,10 +7,10 @@ const fetchCameras = async() => {
         if (response.ok) {
             cameras = await response.json();
             console.log(cameras);    
-        } else {
+        }else {
             alert('Serveur indisponible');
         }
-    } catch (e){
+    }catch (e){
         console.log(e);
     }
 }  
@@ -48,10 +47,10 @@ showCameras();
 
 //ANIMATION ICONE PANIER
 const basketLogoColor = () => {
-  let productNumbers = localStorage.getItem('product');
-    productNumbers = parseInt(productNumbers);
-
-    if (productNumbers) {
+    let basketItems = localStorage.getItem('camerasInBasket');
+    basketItems = JSON.parse(basketItems);
+    
+    if (basketItems) {
            let basketLogo = document.getElementById('basket_logo');
             basketLogo.style.color = 'red';
     }   

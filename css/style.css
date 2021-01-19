@@ -197,12 +197,14 @@ ul {
     .purchaseCam_infos #trash-can i {
       margin-top: 10px;
       cursor: pointer; }
+  .purchaseCam_infos .cam-id {
+    display: none; }
 
 .calculPrice {
   display: flex;
   justify-content: space-between;
   margin-top: 10px; }
-  .calculPrice #purchaseCam_total {
+  .calculPrice .purchaseCam_total {
     color: red;
     font-size: 1.2em; }
 
