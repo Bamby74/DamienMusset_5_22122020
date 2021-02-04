@@ -203,8 +203,10 @@ ul {
 .calculPrice {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px; }
-  .calculPrice .purchaseCam_total {
+  align-items: center;
+  margin-top: 10px;
+  height: 20px; }
+  .calculPrice p {
     color: red;
     font-size: 1.2em; }
 

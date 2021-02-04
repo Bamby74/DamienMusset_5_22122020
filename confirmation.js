@@ -40,7 +40,6 @@ const congratulationsDisplay = () => {
             `
         )
     }
-    console.log()
     localStorage.clear();
 }
 congratulationsDisplay();

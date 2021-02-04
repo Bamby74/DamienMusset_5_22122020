@@ -11,8 +11,7 @@ const fetchCameras = async() => {
     try {
         let response = await fetch('http://localhost:3000/api/cameras');
         if (response.ok) {
-            basket = await response.json();
-            console.log(basket);    
+            basket = await response.json();    
         }else {
             alert('Serveur indisponible');
         }
@@ -24,7 +23,8 @@ fetchCameras();
 
 const showBasket = async() => {
     await fetchCameras();
-    
+    let totalPrice;
+    let addPrice = [];
     if (basketItems == null || basketItems == undefined) {
 
         basketTitle.innerHTML = (
@@ -46,7 +46,6 @@ const showBasket = async() => {
                 quantity: lense.quantity
             }
         }));
-        let addPrice = [];
 
         let basketList = document.getElementById('basket_list');
         
@@ -54,10 +53,13 @@ const showBasket = async() => {
             const findCam = basket.find(camInBasket => camInBasket._id === cam.id);
 
             //CALCUL PRIX TOTAL / CAM
-            let camQuantity = cam.quantity;
+            let cameraTotalPrice;
+            const calculCamPrice = () => {
+                let camQuantity = cam.quantity;
     
-            let cameraTotalPrice = findCam.price/100 * camQuantity;
-                addPrice.push(cameraTotalPrice);
+                 cameraTotalPrice = findCam.price/100 * camQuantity;
+            }
+            calculCamPrice();
             //
             basketList.innerHTML += (
                 `
@@ -70,7 +72,7 @@ const showBasket = async() => {
                         <p>Prix unitaire :<span class="purchaseCam_price"> ${findCam.price/100}</span>€</p>
                         <div class="calculPrice">
                             <input name="quantity" id="purchaseCam_quantity-cam" type="number" value="${cam.quantity}" min="1" max="10">
-                            <span class="purchaseCam_total">${cameraTotalPrice}€</span>
+                            <p><span class="purchaseCam_total">${cameraTotalPrice}</span> €</p>
                         </div>
                         <p id="trash-can" class="trash-can"><i class="fas fa-trash-alt"></i></p>    
                     </div>
@@ -95,10 +97,11 @@ const showBasket = async() => {
                     let CamPriceUnit = parseInt(quantityButtonSelected.parentElement.parentElement.parentElement.getElementsByClassName('purchaseCam_price')[0].innerText);
                     newCamPriceTotal.textContent = (
                         `
-                        ${quantityButtonSelected.value*CamPriceUnit}€
+                        ${quantityButtonSelected.value*CamPriceUnit}
                         `
                     )
-                    location.reload();
+                    cumulPrice();
+                    document.getElementById('final-price').textContent = totalPrice;
                 });
             }
         }
@@ -125,29 +128,34 @@ const showBasket = async() => {
                     if (basketItems.length === 0) {
                         localStorage.removeItem('camerasInBasket');
                         localStorage.clear();
-                    } else {
+                    }else {
                         localStorage.setItem('camerasInBasket', JSON.stringify(basketItems));
                     }   
-                    
                     buttonClicked.parentElement.parentElement.parentElement.remove();
-                    let newCamPriceTotal = buttonClicked.parentElement.getElementsByClassName('purchaseCam_total')[0];
-                    let CamPriceUnit = parseInt(buttonClicked.parentElement.parentElement.parentElement.getElementsByClassName('purchaseCam_price')[0].innerText);
-                    newCamPriceTotal.textContent = (
-                        `
-                        ${quantityButtonSelected.value*CamPriceUnit}€
-                        `
-                    )
-                    location.reload()                                          
-                })
+                    
+                    let checkBasketItems = localStorage.getItem('camerasInBasket');
+                    checkBasketItems = JSON.parse(checkBasketItems);
+                    if (checkBasketItems === null) {
+                        location.reload();
+                    }
+                });
             }
         }
         deleteProduct();
     
         // CALCUL PRIX TOTAL
-        const cumul = (accumulator,currentValue) => accumulator + currentValue;
-        let totalPrice = addPrice.reduce(cumul);
-
-        localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+        const cumulPrice = () => {
+            let cumulPrice = [];
+            addPrices = document.getElementsByClassName('purchaseCam_total');
+            for (i = 0; i < addPrices.length; i++) {
+                addPrice = parseInt(addPrices[i].innerText);
+                cumulPrice.push(addPrice);                    
+            };
+            const cumul = (accumulator,currentValue) => accumulator + currentValue;
+            totalPrice = cumulPrice.reduce(cumul);
+            localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+        }
+        cumulPrice();
 
         // CREATION BOUTON VALIDER LA COMMANDE & VIDER LE PANIER
         let div = document.createElement('div');
@@ -225,9 +233,9 @@ const validForm = () => {
         if (/[0-9]/.test(city) || !city) {
             formIsInvalid += "Veuillez renseigner votre ville \n";
         }
-        /*if (/[.+@.+\..+]/.test(email)) {
+        if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
             formIsInvalid += "Veuillez renseigner un email valable";
-        }*/
+        }
         if (formIsInvalid) {
             alert('Nous ne pouvons finaliser votre commande : \n' + formIsInvalid);
         }

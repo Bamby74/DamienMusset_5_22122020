@@ -244,8 +244,10 @@ ul{
 .calculPrice{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: 10px;
-    .purchaseCam_total{
+    height: 20px;
+    p{
         color: red;
         font-size: 1.2em;
     }
