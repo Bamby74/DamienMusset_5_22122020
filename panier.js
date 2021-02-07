@@ -138,6 +138,8 @@ const showBasket = async() => {
                     if (checkBasketItems === null) {
                         location.reload();
                     }
+                    cumulPrice();
+                    document.getElementById('final-price').textContent = totalPrice;
                 });
             }
         }
@@ -209,57 +211,62 @@ deleteButton();
 // VERIFIER LE FORMULAIRE POUR VALIDATION
 //  VALIDER LE FORMULAIRE
 
-const validForm = () => {
-    const formContact = document.querySelector('form');
-    formContact.addEventListener('submit', (e) => {
-        e.preventDefault();
+const validForm = async() => {
+    await validButton();
+    try {
+        const formContact = document.querySelector('form');
+        formContact.addEventListener('submit', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            let formIsInvalid = '';
+            let firstName = document.getElementById('firstName').value;
+            let lastName = document.getElementById('lastName').value;
+            let address = document.getElementById('address').value;
+            let city = document.getElementById('city').value;
+            let email = document.getElementById('email').value;
 
-        let formIsInvalid = '';
-        let firstName = document.getElementById('firstName').value;
-        let lastName = document.getElementById('lastName').value;
-        let address = document.getElementById('address').value;
-        let city = document.getElementById('city').value;
-        let email = document.getElementById('email').value;
+            if (/[0-9]/.test(lastName) || /[!,.;:()?~%&^]/.test(lastName) || !lastName) { 
+                formIsInvalid += "Veuillez renseigner un Nom valable \n";
+            }
+            if (/[0-9]/.test(firstName) || /[!,.;:()?~%&^]/.test(firstName) || !firstName) {
+                formIsInvalid += "Veuillez renseigner un Prénom valable \n";
+            }
+            if (!address) {
+                formIsInvalid += "Veuillez renseigner votre adresse \n";
+            }
+            if (/[0-9]/.test(city) || !city) {
+                formIsInvalid += "Veuillez renseigner votre ville \n";
+            }
+            if (!/[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,10}/.test(email) || !email) {
+                formIsInvalid += "Veuillez renseigner un email valable";
+            }
+            if (formIsInvalid) {
+                alert('Nous ne pouvons finaliser votre commande : \n' + formIsInvalid);
+            }
+            else {
+                let contact = {
+                    firstName : firstName,
+                    lastName : lastName,
+                    address : address,
+                    city : city,
+                    email : email,
+                };
 
-        if (/[0-9]/.test(lastName) || /[!,.;:()?~%&^]/.test(lastName) || !lastName) { 
-            formIsInvalid += "Veuillez renseigner un Nom valable \n";
-        }
-        if (/[0-9]/.test(firstName) || /[!,.;:()?~%&^]/.test(firstName) || !firstName) {
-            formIsInvalid += "Veuillez renseigner un Prénom valable \n";
-        }
-        if (!address) {
-            formIsInvalid += "Veuillez renseigner votre adresse \n";
-        }
-        if (/[0-9]/.test(city) || !city) {
-            formIsInvalid += "Veuillez renseigner votre ville \n";
-        }
-        if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-            formIsInvalid += "Veuillez renseigner un email valable";
-        }
-        if (formIsInvalid) {
-            alert('Nous ne pouvons finaliser votre commande : \n' + formIsInvalid);
-        }
-        else {
-            let contact = {
-                firstName : firstName,
-                lastName : lastName,
-                address : address,
-                city : city,
-                email : email,
-            };
-
-            let products = [];
-            basketItems.forEach(item => {
-                products.push(item.id)
-            })
-            
-            let order = { 
-                contact,
-                products,
-            };
-            sendPost(order);
-        }
-    });  
+                let products = [];
+                basketItems.forEach(item => {
+                    products.push(item.id)
+                })
+                
+                let order = { 
+                    contact,
+                    products,
+                };
+                sendPost(order);
+            }
+        })
+    } catch (e) {  
+        console.log(e)
+    }
 }
 validForm();
 
