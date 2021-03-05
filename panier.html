@@ -30,25 +30,25 @@
             <h1>Votre panier</h1>
             <div id="basket_list">
                 <div id="form">
-                    <form  method="get" class="form-contact">
+                    <form class="form-contact">
                         <h3>Remplissez ce formulaire afin de valider votre commande</h3>
                         <div class="form_container">
                             <div class="form_contact">
-                                <label for="lastName"> Nom : </label>
-                                <input type="text" name="lastName" id="lastName" required>
+                                <label for="nom"> Nom : </label>
+                                <input type="text" name="nom" id="nom" required pattern="[A-Za-z]+">
                                 <span id="lastNameValid"></span>
                             </div>
                             <div class="form_contact">
-                                <label for="firstName"> Prénom : </label>
-                                <input type="text" name="firstName" id="firstName" required>
+                                <label for="prenom"> Prénom : </label>
+                                <input type="text" name="prenom" id="prenom" required pattern="[A-Za-z]+">
                             </div>
                             <div class="form_contact">
-                                <label for="address"> Adresse : </label>
-                                <input type="text" name="address" id="address" required>
+                                <label for="adresse"> Adresse : </label>
+                                <input type="text" name="adresse" id="adresse" required>
                             </div>
                             <div class="form_contact">
-                                <label for="city"> Ville : </label>
-                                <input type="text" name="city" id="city" required>
+                                <label for="ville"> Ville : </label>
+                                <input type="text" name="ville" id="ville" required pattern="[A-Za-z]+">
                             </div>
                             <div class="form_contact">
                                 <label for="email"> Email : </label>
@@ -71,6 +71,9 @@
             <li>Contact</li>
         </ul>
     </footer>
+    <script src="model/cameras.js"></script>
+    <script src="model/panier.js"></script>
     <script src="panier.js"></script>
+    
 </body>
 </html>

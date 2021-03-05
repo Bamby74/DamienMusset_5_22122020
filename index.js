@@ -1,30 +1,8 @@
-const camMap = document.getElementById('cam_map');
-let cameras;
-// API REQUEST
-const fetchCameras = async() => {
-    try {
-        let response = await fetch('http://localhost:3000/api/cameras')
-        if (response.ok) {
-            cameras = await response.json();
-            console.log(cameras);    
-        }else {
-            alert('Serveur indisponible');
-        }
-    }catch (e){
-        console.log(e);
-    }
-}  
-
-fetchCameras();
-
-const showCameras = async() => {
-    await fetchCameras();
-
+getCameras().then((cameras) => {
+    const camMap = document.getElementById('cam_map');
     camMap.innerHTML = (
-    
         cameras
             .map(camera => (
-
                 `
                 <article class="cam_card">
                     <div class="cam_photo">
@@ -37,25 +15,12 @@ const showCameras = async() => {
                         <a href='produit.html?id=${camera._id}' class="btn"><i class="fas fa-info-circle"></i> Détails</a> 
                     </div>  
                 </article>
-
                 `
         )).join('')
     );
-}
+}).catch((error) => console.log(error)); 
 
-showCameras();
 
-//ANIMATION ICONE PANIER
-const basketLogoColor = () => {
-    let basketItems = localStorage.getItem('camerasInBasket');
-    basketItems = JSON.parse(basketItems);
-    
-    if (basketItems) {
-           let basketLogo = document.getElementById('basket_logo');
-            basketLogo.style.color = 'red';
-    }   
-}
-basketLogoColor();
 
 
 
