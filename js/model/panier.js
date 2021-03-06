@@ -3,17 +3,21 @@ const getLocalStorage = (key) => {
     let basketItems = localStorage.getItem(key);
     return JSON.parse(basketItems);
 }   
+
 //INSÉRER ELEMENT DANS LOCALSTORAGE
 const setLocalStorage = (key,valeur) => {
     localStorage.setItem(key, JSON.stringify(valeur));
 }
+
 //ANIMATION ICONE PANIER
-const basketLogoColor = (item) => {
-    if(item) {
+const basketLogoColor = (color) => {
+    let basketItems = getLocalStorage('camerasInBasket');
+    if(basketItems) {
         let basketLogo = document.getElementById('basket_logo');
-        basketLogo.style.color = 'red';
+        basketLogo.style.color = color;
     }   
 }
+basketLogoColor('purple');
 
 // BOUTON AJOUTER AU PANIER
 const addProduct = (data) => {
@@ -64,7 +68,6 @@ const updateItems = (data)  => {
     }
     setLocalStorage('camerasInBasket',basketItems)
 }
-
 
 // BOUTTON AJOUT QUANTITÉ
 const addQuantity = () => {
@@ -120,6 +123,7 @@ const deleteProduct = () => {
         });
     }
 }
+
 //TROUVER CAMERA DANS LOCAL STORAGE LORS D"INTERACTION AJOUT QUANTITE OU SUPPRESSION ARTICLE
 const findGoodCam = (camSelected) => {
     let camSelectedId = camSelected.parentElement.parentElement.parentElement.getElementsByClassName('cam-id')[0].innerText;
@@ -128,6 +132,7 @@ const findGoodCam = (camSelected) => {
     const findCamSelectedLense = findCamSelectedId.lenses.find(lense => lense.name === camSelectedLense);
     return findCamSelectedLense
 }
+
 //PRIX TOTAL POUR UN PRODUIT
 const calculCamPrice = (data,findData) => {
     let camQuantity = data.quantity;
@@ -179,8 +184,9 @@ const emptyBasket = () => {
         `
     );
 }
+
 //FORMULAIRE
-const validForm = (param) => {
+const validInput = (param) => {
     let input = document.getElementById(param);
     let form = document.querySelector('form');
 

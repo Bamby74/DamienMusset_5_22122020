@@ -1,6 +1,6 @@
 let basketItems = getLocalStorage('camerasInBasket');
 const showBasket = () => {
-    if(basketItems.lenght === 0) {
+    if(!basketItems) {
         emptyBasket()
     }else {
         let cameras = Object.values(basketItems);
@@ -54,10 +54,10 @@ const showBasket = () => {
             deleteProduct();
             deleteButton();
             validButton();
-            validForm('nom');
-            validForm('prenom');
+            validInput('nom');
+            validInput('prenom');
             submitForm(); 
-        })
+        }).catch(error => console.log(error));
     }
 }
 showBasket();
