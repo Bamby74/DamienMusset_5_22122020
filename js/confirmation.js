@@ -7,7 +7,7 @@ const congratulationsDisplay = () => {
     if (id === null) {
         image.innerHTML = (
             `
-            <img class=gif src="images/orderInProcess.png" alt="marteau qui construit appareil photo">
+            <img class=gif src="../images/orderInProcess.png" alt="marteau qui construit appareil photo">
             `
         )
         title.innerHTML = (
@@ -18,7 +18,7 @@ const congratulationsDisplay = () => {
     }else {
         image.innerHTML = (
             `
-            <img class="gif" src="images/GIFCamVintage.gif" alt="image animée d'appareil photo">
+            <img class="gif" src="../images/GIFCamVintage.gif" alt="image animée d'appareil photo">
             `
         )
         title.innerHTML = (

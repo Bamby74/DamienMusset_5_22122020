@@ -12,7 +12,7 @@ getCameras().then((cameras) => {
                         <p class="cam_info-name">${camera.name}</p>
                         <p class="cam_info-description">${camera.description}</p>
                         <div class="cam_lastline-price">${camera.price/100}€</div>                        
-                        <a href='produit.html?id=${camera._id}' class="btn"><i class="fas fa-info-circle"></i> Détails</a> 
+                        <a href='./page/produit.html?id=${camera._id}' class="btn"><i class="fas fa-info-circle"></i> Détails</a> 
                     </div>  
                 </article>
                 `
