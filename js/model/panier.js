@@ -4,7 +4,7 @@ const getLocalStorage = (key) => {
     return JSON.parse(basketItems);
 }   
 
-//INSÉRER ELEMENT DANS LOCALSTORAGE
+//INSÉRER ÉLÉMENT DANS LOCALSTORAGE
 const setLocalStorage = (key,valeur) => {
     localStorage.setItem(key, JSON.stringify(valeur));
 }
@@ -209,8 +209,6 @@ const submitForm = () => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        validForm('nom');
-        validForm('prenom');
         let contact = {
             firstName : document.getElementById('prenom').value,
             lastName : document.getElementById('nom').value,
@@ -222,7 +220,6 @@ const submitForm = () => {
         basketItems.forEach(item => {
             products.push(item.id)
         });
-        console.log(products)
         let order = {
             contact,
             products,
