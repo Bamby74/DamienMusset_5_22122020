@@ -27,7 +27,7 @@ getOneCamera(url)
             </div>   
             `
         );
-        addProduct(product);
+        addProductToBasket(product);
     })
     .catch(error => console.log(error));
 

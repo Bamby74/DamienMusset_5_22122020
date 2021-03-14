@@ -44,15 +44,15 @@
                             </div>
                             <div class="form_contact">
                                 <label for="adresse"> Adresse : </label>
-                                <input type="text" name="adresse" id="adresse" required>
+                                <input type="text" name="adresse" id="adresse" required maxlength="250">
                             </div>
                             <div class="form_contact">
                                 <label for="ville"> Ville : </label>
-                                <input type="text" name="ville" id="ville" required pattern="[A-Za-z]+">
+                                <input type="text" name="ville" id="ville" required pattern="[A-Za-z' -]+">
                             </div>
                             <div class="form_contact">
                                 <label for="email"> Email : </label>
-                                <input type="email" name="email" id="email" required>
+                                <input type="email" name="email" id="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
                             </div>
                             <div class="form_contact form_button">
                                 <input id="validButton" type="submit" value="Valider ma commande !">

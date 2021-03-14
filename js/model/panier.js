@@ -11,32 +11,34 @@ const setLocalStorage = (key,valeur) => {
 
 //ANIMATION ICONE PANIER
 const basketLogoColor = (color) => {
-    let basketItems = getLocalStorage('camerasInBasket');
-    if(basketItems) {
-        let basketLogo = document.getElementById('basket_logo');
+    let itemsInLocalStorage = getLocalStorage('camerasInBasket');
+    let basketLogo = document.getElementById('basket_logo');
+    if(itemsInLocalStorage) {
         basketLogo.style.color = color;
+    }else{
+        basketLogo.style.color = 'black';
     }   
 }
 basketLogoColor('purple');
 
 // BOUTON AJOUTER AU PANIER
-const addProduct = (data) => {
+const addProductToBasket = (data) => {
     const button = document.querySelector('button');
     button.addEventListener('click', () => {
         let selectLense = document.querySelector('select').value;
         if (selectLense) {
             updateItems(data);
+            basketLogoColor('purple');
         }else {
             alert('Veuillez choisir un objectif pour ajouter votre produit au panier !');
         }
     });
 }
 
-//ENVOIE DONNÉES PRODUITS DANS LOCALSTORAGE
+//ENVOIE DONNÉES PRODUITS DANS LOCALSTORAGE 
 const updateItems = (data)  => {
     let basketItems = getLocalStorage('camerasInBasket');
     let selectLense = document.querySelector('select').value;
-
     if (basketItems) {
         const findProductId = basketItems.find(item => item.id === data._id);
             if (findProductId) {
@@ -69,8 +71,8 @@ const updateItems = (data)  => {
     setLocalStorage('camerasInBasket',basketItems)
 }
 
-// BOUTTON AJOUT QUANTITÉ
-const addQuantity = () => {
+// MISE À JOUR DES PRIX EN FONCTION DES QUANTITÉS PRODUITS
+const updatePriceWithQuantity = () => {
     let quantityCamButtons = document.getElementsByClassName('purchaseCam_quantity-cam');
     for (i = 0 ; i < quantityCamButtons.length ; i++) {
         let quantityButton = quantityCamButtons[i];
@@ -104,7 +106,6 @@ const deleteProduct = () => {
             const findCamLense = findCamId.lenses.find(lense => lense.name === deleteCamLense);
             let indexFindCamLense = findCamId.lenses.indexOf(findCamLense);
             findCamId.lenses.splice(indexFindCamLense,1);
-            
             if (findCamId.lenses.length === 0) {
                 let indexFindCamId = basketItems.indexOf(findCamId);
                 basketItems.splice(indexFindCamId,1);    
@@ -116,7 +117,8 @@ const deleteProduct = () => {
             }   
             let checkBasketItems = getLocalStorage('camerasInBasket');
             if (checkBasketItems === null) {
-                emptyBasket()
+                emptyBasket();
+                basketLogoColor('purple');
             }else {
                 document.getElementById('final-price').textContent = cumulPrice();
             } 
@@ -139,7 +141,7 @@ const calculCamPrice = (data,findData) => {
     return findData.price/100 * camQuantity;
 }
 
-// CALCUL PRIX TOTAL
+// CALCUL PRIX TOTAL DE TOUS LES PRODUITS
 const cumulPrice = () => {
     let cumulPrice = [];
     let addPrice =[];
@@ -153,7 +155,7 @@ const cumulPrice = () => {
 }
 
 // ACTION BOUTON "VALIDER MON PANIER"
-const validButton = () => {  
+const validBasket = () => {  
     let validBasket = document.getElementById('valid_basket');
     validBasket.addEventListener('click', () => {
         let form = document.getElementById('form');
@@ -162,12 +164,13 @@ const validButton = () => {
 }  
 
 // ACTION BOUTON VIDER LE PANIER
-const deleteButton = () => {
+const deleteBasket = () => {
     let deleteBasket = document.getElementById('delete_basket');
     deleteBasket.addEventListener('click', () => {
         localStorage.clear();
+        basketLogoColor('purple');
         emptyBasket();
-    })
+    })   
 }
 
 //PANIER VIDE
@@ -188,18 +191,15 @@ const emptyBasket = () => {
 //FORMULAIRE
 const validInput = (param) => {
     let input = document.getElementById(param);
-    let form = document.querySelector('form');
-
     input.addEventListener('input', () => {
         input.setCustomValidity('');
         input.checkValidity();
     });
-
     input.addEventListener('invalid', () => {
         if(input.value === '') {
             input.setCustomValidity(`Entrez votre ${param} !`);
         }else {
-            input.setCustomValidity(`Veuillez renseigner un ${param} valable !`);
+            input.setCustomValidity(`Veuillez renseigner un(e) ${param} valable !`);
         }
     });    
 }
@@ -225,8 +225,7 @@ const submitForm = () => {
             products,
         };
         let totalPrice = document.getElementById('final-price').innerText;
-        sendOrder(order).then(resData => { 
-            location.assign(`confirmation.html?order=${resData.orderId}&price=${totalPrice}`)
-        })
+        //UTILISATION REQUÊTE POST
+        sendOrder(order).then(resData => { location.assign(`confirmation.html?order=${resData.orderId}&price=${totalPrice}`)});
     })
 }

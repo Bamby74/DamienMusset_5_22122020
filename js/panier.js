@@ -50,13 +50,19 @@ const showBasket = () => {
                 <button id="delete_basket"><i class="fas fa-trash-alt"></i>Vider le panier</button>
                 `  
             )
-            addQuantity();
+            //FONCTIONS D'ÉVÈNEMENTS
+            updatePriceWithQuantity();
             deleteProduct();
-            deleteButton();
-            validButton();
+            deleteBasket();
+            validBasket();
+            //VALIDATION ENTRÉE DU FORMULAIRE
             validInput('nom');
             validInput('prenom');
-            submitForm(); 
+            validInput('adresse');
+            validInput('ville');
+            validInput('email');
+            //SOUMISSION DU FORMULAIRE AVEC REQUÊTE POST 
+            submitForm()  
         }).catch(error => console.log(error));
     }
 }
