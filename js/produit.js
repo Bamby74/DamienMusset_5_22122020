@@ -1,6 +1,6 @@
 let url = generateUrl('id');
 
-getOneCamera(url)
+getCameras(url)
     .then((product) => {
         const product_map = document.getElementById("product_map");
         product_map.innerHTML = (

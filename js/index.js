@@ -1,4 +1,6 @@
-getCameras().then((cameras) => {
+let url = 'http://localhost:3000/api/cameras';
+
+getCameras(url).then((cameras) => {
     const camMap = document.getElementById('cam_map');
     camMap.innerHTML = (
         cameras

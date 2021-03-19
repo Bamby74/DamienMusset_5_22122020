@@ -1,9 +1,6 @@
-//Requête pour obtenir la liste des caméras
-const getCameras = () => fetch('http://localhost:3000/api/cameras')
-    .then(res => res.json());   
 
 //Requête pour obtenir la liste d'une caméra
-const getOneCamera = (data) => fetch(data)
+const getCameras = (data) => fetch(data)
     .then(res => res.json());
  
 //Requête pour envoyer les données de commande

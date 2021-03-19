@@ -1,7 +1,7 @@
 //RÉCUPÉRATION DES PRODUITS DANS LOCALSTORAGE
 const getLocalStorage = (key) => {
-    let basketItems = localStorage.getItem(key);
-    return JSON.parse(basketItems);
+    let valeur = localStorage.getItem(key);
+    return JSON.parse(valeur);
 }   
 
 //INSÉRER ÉLÉMENT DANS LOCALSTORAGE
