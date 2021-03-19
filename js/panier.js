@@ -11,7 +11,8 @@ const showBasket = () => {
                 quantity: lense.quantity
             }
         }));
-        getCameras().then(basket => {
+        let url = 'http://localhost:3000/api/cameras';
+        getCameras(url).then(basket => {
             
             let basketList = document.getElementById('basket_list');
             cams.forEach((cam) => {
