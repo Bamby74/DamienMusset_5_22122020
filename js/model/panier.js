@@ -137,6 +137,7 @@ const findGoodCam = (camSelected) => {
 
 //PRIX TOTAL POUR UN PRODUIT
 const calculCamPrice = (data,findData) => {
+    debugger
     let camQuantity = data.quantity;
     return findData.price/100 * camQuantity;
 }
