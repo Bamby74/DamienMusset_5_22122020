@@ -10,7 +10,8 @@ const setLocalStorage = (key,valeur) => {
 }
 
 //ANIMATION ICONE PANIER
-const basketLogoColor = (color) => {
+let color = 'green';
+const basketLogoColor = () => {
     let itemsInLocalStorage = getLocalStorage('camerasInBasket');
     let basketLogo = document.getElementById('basket_logo');
     if(itemsInLocalStorage) {
@@ -19,7 +20,7 @@ const basketLogoColor = (color) => {
         basketLogo.style.color = 'black';
     }   
 }
-basketLogoColor('purple');
+basketLogoColor();
 
 // BOUTON AJOUTER AU PANIER
 const addProductToBasket = (data) => {
@@ -28,7 +29,7 @@ const addProductToBasket = (data) => {
         let selectLense = document.querySelector('select').value;
         if (selectLense) {
             updateItems(data);
-            basketLogoColor('purple');
+            basketLogoColor();
         }else {
             alert('Veuillez choisir un objectif pour ajouter votre produit au panier !');
         }
@@ -118,7 +119,7 @@ const deleteProduct = () => {
             let checkBasketItems = getLocalStorage('camerasInBasket');
             if (checkBasketItems === null) {
                 emptyBasket();
-                basketLogoColor('purple');
+                basketLogoColor();
             }else {
                 document.getElementById('final-price').textContent = cumulPrice();
             } 
@@ -168,7 +169,7 @@ const deleteBasket = () => {
     let deleteBasket = document.getElementById('delete_basket');
     deleteBasket.addEventListener('click', () => {
         localStorage.clear();
-        basketLogoColor('purple');
+        basketLogoColor();
         emptyBasket();
     })   
 }
